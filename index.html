@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UMKM Mojok – Platform Digital UMKM Kota Mojokerto</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0d3320;--emerald:#1a5c38;--jade:#2d8a55;--mint:#5bbf82;
+  --gold:#e8a020;--gold-lt:#f5c842;--cream:#faf7f2;--parch:#f0ebe0;
+  --white:#ffffff;--ink:#181a18;--muted:#6b7563;--border:#ddd8cc;
+  --gov-dark:#0f1f3d;--gov-blue:#1e3a8a;--gov-mid:#2563eb;--gov-lt:#dbeafe;
+  --danger:#dc2626;--success:#16a34a;--warn:#d97706;
+  --r:13px;--rlg:20px;--rmax:28px;
+  --sh:0 4px 24px rgba(13,51,32,.10);--shlg:0 16px 56px rgba(13,51,32,.18);
+  --shgov:0 16px 56px rgba(15,31,61,.22);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden}
+.page{display:none;min-height:100vh;flex-direction:column}
+.page.active{display:flex}
+
+/* ======= NAVBAR ======= */
+.navbar{background:rgba(13,51,32,.97);backdrop-filter:blur(14px);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(232,160,32,.18);box-shadow:0 2px 20px rgba(0,0,0,.28)}
+.brand{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none}
+.brand-ico{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold-lt));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 2px 8px rgba(232,160,32,.4)}
+.brand-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff}
+.brand-sub{display:block;font-size:.57rem;color:rgba(245,200,66,.8);letter-spacing:1.8px;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;line-height:1}
+.nav-links{display:flex;align-items:center;gap:3px;list-style:none}
+.nav-links a,.nav-links button{background:none;border:none;color:rgba(255,255,255,.75);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;padding:.48rem .85rem;border-radius:9px;cursor:pointer;text-decoration:none;transition:all .18s;white-space:nowrap}
+.nav-links a:hover,.nav-links button:hover,.nav-links .active{color:#fff!important;background:rgba(255,255,255,.1)}
+.nav-gold{background:linear-gradient(135deg,var(--gold),#d48a10)!important;color:#fff!important;font-weight:700!important}
+.nav-gold:hover{background:linear-gradient(135deg,var(--gold-lt),var(--gold))!important}
+.nav-gov{background:rgba(37,99,235,.25)!important;color:#93c5fd!important;border:1px solid rgba(37,99,235,.3)!important}
+.nav-gov:hover{background:rgba(37,99,235,.4)!important;color:#fff!important}
+
+/* ======= HERO LANDING ======= */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--forest) 0%,#0a2818 40%,#061a0f 100%);z-index:0}
+.hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(45,138,85,.28) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 20% 70%,rgba(232,160,32,.14) 0%,transparent 55%)}
+.orb{position:absolute;border-radius:50%;filter:blur(65px);opacity:.32;animation:flt 9s ease-in-out infinite}
+.orb1{width:520px;height:520px;background:radial-gradient(circle,#2d8a55,transparent);top:-120px;right:-80px;animation-delay:0s}
+.orb2{width:380px;height:380px;background:radial-gradient(circle,#e8a020,transparent);bottom:-100px;left:8%;animation-delay:3.5s}
+.orb3{width:260px;height:260px;background:radial-gradient(circle,#5bbf82,transparent);top:35%;left:3%;animation-delay:5.5s}
+@keyframes flt{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-32px) scale(1.05)}}
+.hero-pattern{position:absolute;inset:0;opacity:.055;z-index:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Ccircle cx='45' cy='45' r='38' fill='none' stroke='%23fff' stroke-width='.8'/%3E%3Ccircle cx='45' cy='45' r='26' fill='none' stroke='%23fff' stroke-width='.5'/%3E%3Ccircle cx='45' cy='45' r='14' fill='none' stroke='%23fff' stroke-width='.4'/%3E%3Cline x1='7' y1='45' x2='83' y2='45' stroke='%23fff' stroke-width='.35'/%3E%3Cline x1='45' y1='7' x2='45' y2='83' stroke='%23fff' stroke-width='.35'/%3E%3Cline x1='18' y1='18' x2='72' y2='72' stroke='%23fff' stroke-width='.25'/%3E%3Cline x1='72' y1='18' x2='18' y2='72' stroke='%23fff' stroke-width='.25'/%3E%3C/svg%3E")}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;max-width:1200px;width:100%;padding:2rem 1.5rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.35);color:var(--gold-lt);padding:.38rem 1.1rem;border-radius:30px;font-size:.75rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;margin-bottom:1.6rem;animation:fadeUp .8s ease both}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5.5vw,4.6rem);font-weight:900;line-height:1.06;color:#fff;margin-bottom:1.1rem;animation:fadeUp .8s .15s ease both}
+.gold-txt{background:linear-gradient(135deg,var(--gold),var(--gold-lt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.05rem;color:rgba(255,255,255,.72);line-height:1.75;max-width:520px;margin-bottom:2.25rem;animation:fadeUp .8s .3s ease both}
+.hero-cta{display:flex;gap:.875rem;flex-wrap:wrap;animation:fadeUp .8s .45s ease both}
+.hero-right{animation:fadeUp .8s .2s ease both}
+.hero-card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:.875rem;margin-bottom:.875rem;transition:all .3s}
+.hero-card:hover{background:rgba(255,255,255,.14);transform:translateX(4px)}
+.hc-ico{font-size:2rem;width:48px;text-align:center}
+.hc-val{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--gold-lt);line-height:1}
+.hc-lbl{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:2px}
+.scroll-hint{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.35);font-size:.75rem;text-align:center;z-index:2;animation:bounce 2.5s ease-in-out infinite;letter-spacing:.5px}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}55%{transform:translateX(-50%) translateY(9px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* ======= LAYOUT ======= */
+.container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+.sec{padding:5rem 0}
+.sec-alt{background:var(--white)}
+.sec-header{text-align:center;margin-bottom:3.25rem}
+.sec-tag{display:inline-block;background:#e8f5ee;color:var(--emerald);font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:.32rem .95rem;border-radius:20px;margin-bottom:.7rem}
+.sec-title{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;color:var(--ink);margin-bottom:.45rem}
+.sec-sub{color:var(--muted);max-width:480px;margin:0 auto;line-height:1.65;font-size:.95rem}
+
+/* ======= BUTTONS ======= */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.7rem 1.45rem;border-radius:var(--r);font-size:.9rem;font-weight:600;font-family:inherit;cursor:pointer;border:none;text-decoration:none;transition:all .2s;white-space:nowrap}
+.btn-primary{background:var(--emerald);color:#fff}
+.btn-primary:hover{background:var(--jade);transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,92,56,.28)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#c87d10);color:#fff}
+.btn-gold:hover{background:linear-gradient(135deg,var(--gold-lt),var(--gold));transform:translateY(-2px);box-shadow:0 6px 18px rgba(232,160,32,.32)}
+.btn-outline{background:transparent;border:2px solid var(--emerald);color:var(--emerald)}
+.btn-outline:hover{background:var(--emerald);color:#fff}
+.btn-ghost{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.22)}
+.btn-wa{background:#25d366;color:#fff}
+.btn-wa:hover{background:#1da851;transform:translateY(-2px);box-shadow:0 6px 18px rgba(37,211,102,.3)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-gov{background:linear-gradient(135deg,var(--gov-blue),var(--gov-mid));color:#fff}
+.btn-gov:hover{background:linear-gradient(135deg,var(--gov-mid),#3b82f6);transform:translateY(-2px)}
+.btn-warn{background:var(--warn);color:#fff}
+.btn-success{background:var(--success);color:#fff}
+.btn-sm{padding:.38rem .85rem;font-size:.78rem}
+.btn-lg{padding:.85rem 1.9rem;font-size:1rem}
+.btn-block{width:100%;justify-content:center}
+
+/* ======= PRODUCT CARDS ======= */
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.prod-card{background:var(--white);border-radius:var(--rlg);border:1px solid var(--border);overflow:hidden;transition:all .28s;position:relative}
+.prod-card:hover{box-shadow:var(--shlg);transform:translateY(-5px)}
+.prod-card .prod-img{width:100%;aspect-ratio:4/3;object-fit:cover;background:linear-gradient(135deg,#e8f5ee,#c8e8d4);display:flex;align-items:center;justify-content:center;font-size:3.8rem;position:relative;overflow:hidden}
+.prod-card .prod-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.prod-card .prod-img .emoji-fallback{position:relative;z-index:1}
+.prod-badge-status{position:absolute;top:10px;right:10px;padding:3px 9px;border-radius:20px;font-size:.68rem;font-weight:700;z-index:2}
+.badge-approved{background:#dcfce7;color:#166534}
+.badge-pending{background:#fef9c3;color:#713f12}
+.badge-rejected{background:#fee2e2;color:#991b1b}
+.prod-body{padding:1.1rem}
+.prod-cat{display:inline-block;background:#e8f5ee;color:var(--emerald);font-size:.67rem;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:5px;text-transform:uppercase}
+.prod-name{font-size:.95rem;font-weight:700;margin-bottom:3px;color:var(--ink);line-height:1.3}
+.prod-price{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--emerald);margin-bottom:3px}
+.prod-seller{font-size:.78rem;color:var(--muted);margin-bottom:11px}
+.prod-rating{display:flex;align-items:center;gap:4px;font-size:.75rem;color:var(--gold);margin-bottom:10px}
+.prod-actions{display:flex;gap:7px}
+
+/* ======= SEARCH ======= */
+.searchbar{display:flex;background:#fff;border-radius:var(--rlg);box-shadow:0 4px 20px rgba(0,0,0,.1);overflow:hidden;border:2px solid var(--border);transition:all .2s}
+.searchbar:focus-within{border-color:var(--emerald);box-shadow:0 4px 24px rgba(26,92,56,.15)}
+.searchbar input{flex:1;padding:.88rem 1.25rem;border:none;font-size:.95rem;font-family:inherit;outline:none;color:var(--ink)}
+.searchbar button{background:var(--emerald);color:#fff;border:none;padding:0 1.4rem;font-size:1.1rem;cursor:pointer;transition:background .2s}
+.searchbar button:hover{background:var(--jade)}
+
+/* ======= CHIPS ======= */
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:.4rem .95rem;border-radius:30px;font-size:.82rem;font-weight:600;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .18s}
+.chip:hover,.chip.on{background:var(--emerald);color:#fff;border-color:var(--emerald)}
+
+/* ======= DASHBOARD LAYOUT ======= */
+.dash-wrap{display:flex;flex:1}
+.sidebar{width:240px;background:var(--forest);padding:1.4rem .9rem;flex-shrink:0;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;display:flex;flex-direction:column}
+.sidebar.gov-side{background:var(--gov-dark)}
+.sb-section{color:rgba(255,255,255,.38);font-size:.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;padding:0 .7rem;margin-bottom:.45rem;margin-top:1.1rem}
+.sb-section:first-child{margin-top:0}
+.sb-nav{list-style:none}
+.sb-nav li{margin-bottom:2px}
+.sb-nav a,.sb-nav button{display:flex;align-items:center;gap:9px;padding:.6rem .7rem;border-radius:9px;text-decoration:none;color:rgba(255,255,255,.62);font-size:.855rem;font-weight:500;transition:all .18s;cursor:pointer;background:none;border:none;width:100%;font-family:inherit}
+.sb-nav a:hover,.sb-nav button:hover{background:rgba(255,255,255,.09);color:#fff}
+.sb-nav a.on,.sb-nav button.on{background:var(--jade);color:#fff;font-weight:600}
+.gov-side .sb-nav a.on,.gov-side .sb-nav button.on{background:var(--gov-mid)}
+.sb-ico{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-user{padding:.85rem;background:rgba(255,255,255,.06);border-radius:11px;margin-top:auto;border:1px solid rgba(255,255,255,.07)}
+.sb-user .su-name{color:#fff;font-weight:600;font-size:.875rem}
+.sb-user .su-role{color:rgba(255,255,255,.42);font-size:.72rem;margin-top:2px}
+.main-area{flex:1;padding:1.75rem 2rem;overflow-x:hidden;background:var(--cream);min-width:0}
+
+/* ======= CARDS ======= */
+.card{background:var(--white);border-radius:var(--rlg);border:1px solid var(--border);overflow:hidden}
+.card-head{padding:1rem 1.4rem;border-bottom:1px solid var(--border);font-size:.92rem;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.card-body{padding:1.4rem}
+
+/* ======= STAT BOXES ======= */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:1.75rem}
+.stat-box{background:var(--white);border-radius:var(--rlg);padding:1.3rem;border:1px solid var(--border);position:relative;overflow:hidden}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--emerald),var(--mint))}
+.stat-box.gov::before{background:linear-gradient(90deg,var(--gov-blue),var(--gov-mid))}
+.stat-box .s-ico{font-size:1.75rem;margin-bottom:.45rem}
+.stat-box .s-val{font-family:'Playfair Display',serif;font-size:1.95rem;font-weight:700;color:var(--emerald);line-height:1}
+.stat-box.gov .s-val{color:var(--gov-mid)}
+.stat-box .s-lbl{font-size:.77rem;color:var(--muted);margin-top:3px}
+.stat-box .s-trend{font-size:.72rem;color:var(--success);font-weight:600;margin-top:4px}
+
+/* ======= FORMS ======= */
+.form-group{margin-bottom:1.1rem}
+.form-label{display:block;font-size:.83rem;font-weight:600;color:var(--ink);margin-bottom:5px}
+.form-label span{color:var(--danger)}
+.form-control{width:100%;padding:.7rem 1rem;border:2px solid var(--border);border-radius:var(--r);font-family:inherit;font-size:.9rem;color:var(--ink);background:var(--white);outline:none;transition:all .2s}
+.form-control:focus{border-color:var(--emerald);box-shadow:0 0 0 3px rgba(26,92,56,.1)}
+.form-control::placeholder{color:#aaa}
+textarea.form-control{min-height:95px;resize:vertical}
+select.form-control{cursor:pointer}
+
+/* ======= TABLE ======= */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--forest);color:#fff;padding:.78rem 1rem;text-align:left;font-size:.8rem;font-weight:600;white-space:nowrap}
+thead th:first-child{border-radius:8px 0 0 0}
+thead th:last-child{border-radius:0 8px 0 0}
+.gov-table thead th{background:var(--gov-dark)}
+tbody td{padding:.78rem 1rem;border-bottom:1px solid var(--border);font-size:.87rem;vertical-align:middle}
+tbody tr:hover td{background:#f0faf4}
+.gov-table tbody tr:hover td{background:var(--gov-lt)}
+tbody tr:last-child td{border-bottom:none}
+
+/* ======= BADGES ======= */
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.71rem;font-weight:700}
+.bg{background:#dcfce7;color:#166534}
+.br{background:#fee2e2;color:#991b1b}
+.by{background:#fef9c3;color:#713f12}
+.bb{background:#dbeafe;color:#1e40af}
+.bo{background:#ffedd5;color:#9a3412}
+
+/* ======= ALERTS ======= */
+.alert{padding:.82rem 1.1rem;border-radius:var(--r);font-size:.875rem;font-weight:500;margin-bottom:.875rem}
+.a-ok{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+.a-err{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.a-inf{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe}
+.a-warn{background:#fef9c3;color:#713f12;border:1px solid #fde68a}
+
+/* ======= PAGE HEROES ======= */
+.page-hero{background:linear-gradient(135deg,var(--forest) 0%,var(--emerald) 100%);padding:2.5rem 0;color:#fff;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3C/g%3E%3C/svg%3E")}
+.page-hero .inner{position:relative;z-index:1}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;margin-bottom:.4rem}
+.page-hero p{opacity:.76;font-size:.97rem}
+.gov-page-hero{background:linear-gradient(135deg,var(--gov-dark),var(--gov-blue))}
+
+/* ======= TRENDING ======= */
+.trend-hero{background:linear-gradient(135deg,#3d0c0c,#991b1b,#c2410c);padding:3.5rem 0;color:#fff;text-align:center;position:relative;overflow:hidden}
+.trend-hero::before{content:'🔥';position:absolute;font-size:20rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+.trend-item{background:var(--white);border-radius:var(--rlg);padding:1.1rem 1.2rem;border:1px solid var(--border);display:flex;align-items:center;gap:1.1rem;transition:all .22s;cursor:pointer;margin-bottom:.85rem}
+.trend-item:hover{box-shadow:var(--shlg);transform:translateX(5px);border-color:var(--emerald)}
+.trend-item:nth-child(1){border-left:4px solid #f59e0b}
+.trend-item:nth-child(2){border-left:4px solid #9ca3af}
+.trend-item:nth-child(3){border-left:4px solid #d97706}
+.rank-b{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0}
+.r1{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#7c2d12;box-shadow:0 4px 10px rgba(245,158,11,.38)}
+.r2{background:linear-gradient(135deg,#9ca3af,#d1d5db);color:#374151}
+.r3{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff}
+.rn{background:#f3f4f6;color:#374151;font-size:.9rem}
+.bar-bg{background:#f3f4f6;border-radius:20px;height:6px;overflow:hidden;margin-top:5px}
+.bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,#f97316,#dc2626);transition:width 1.2s ease}
+
+/* ======= FINANCE ======= */
+.fin-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:1.75rem}
+.fin-card{border-radius:var(--rlg);padding:1.35rem;color:#fff}
+.fc-in{background:linear-gradient(135deg,#15803d,#22c55e)}
+.fc-out{background:linear-gradient(135deg,#b91c1c,#ef4444)}
+.fc-profit{background:linear-gradient(135deg,var(--forest),var(--emerald))}
+.f-lbl{font-size:.72rem;opacity:.82;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.45rem;font-weight:600}
+.f-amt{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700}
+
+/* ======= UPLOAD ZONE ======= */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--rlg);padding:2.25rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--cream)}
+.upload-zone:hover{border-color:var(--emerald);background:#f0faf4}
+.upload-zone:active{transform:scale(.99)}
+.upload-zone .u-ico{font-size:2.4rem;margin-bottom:.7rem}
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem}
+.preview-thumb{aspect-ratio:1;border-radius:var(--r);background:linear-gradient(135deg,#e8f5ee,#d4eddc);display:flex;align-items:center;justify-content:center;font-size:1.7rem;border:1px solid var(--border);overflow:hidden;position:relative}
+.preview-thumb img{width:100%;height:100%;object-fit:cover}
+.preview-thumb .rm-btn{position:absolute;top:4px;right:4px;background:rgba(220,38,38,.85);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ======= MODAL ======= */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:999;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;border-radius:var(--rlg);padding:2.75rem;text-align:center;max-width:420px;width:100%;animation:fadeUp .35s ease}
+.modal-wide{max-width:680px;text-align:left}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted)}
+
+/* ======= BREADCRUMB ======= */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--border);padding:.65rem 0}
+.bc-inner{display:flex;align-items:center;gap:.45rem;font-size:.82rem;color:var(--muted)}
+.bc-inner a{color:var(--emerald);font-weight:500;text-decoration:none;cursor:pointer}
+
+/* ======= WELCOME BAR ======= */
+.welcome-bar{background:linear-gradient(135deg,var(--emerald),var(--jade));color:#fff;padding:1.35rem 1.5rem;border-radius:var(--rlg);display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem}
+.welcome-bar h2{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.2rem}
+.welcome-bar p{opacity:.72;font-size:.83rem}
+.gov-welcome{background:linear-gradient(135deg,var(--gov-dark),var(--gov-blue))}
+
+/* ======= NERACA / EDUKASI ======= */
+.edu-nav{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;border-bottom:2px solid var(--border);padding-bottom:1rem}
+.edu-tab{padding:.45rem 1rem;border-radius:var(--r);font-size:.85rem;font-weight:600;cursor:pointer;background:none;border:2px solid var(--border);color:var(--muted);transition:all .18s;font-family:inherit}
+.edu-tab:hover,.edu-tab.on{background:var(--emerald);color:#fff;border-color:var(--emerald)}
+.edu-content{display:none}
+.edu-content.show{display:block}
+.neraca-table{width:100%;border-collapse:collapse;font-size:.87rem}
+.neraca-table th{background:var(--forest);color:#fff;padding:.7rem 1rem;text-align:left;font-size:.8rem}
+.neraca-table td{padding:.65rem 1rem;border-bottom:1px solid var(--border)}
+.neraca-table tr:hover td{background:#f0faf4}
+.neraca-table .total-row td{background:linear-gradient(135deg,#e8f5ee,#d4eddc);font-weight:700;color:var(--emerald)}
+.neraca-table .subtotal td{background:var(--parch);font-weight:600}
+.edu-box{background:var(--parch);border-radius:var(--rlg);padding:1.4rem;border-left:4px solid var(--emerald);margin-bottom:1.25rem}
+.edu-box h4{font-weight:700;margin-bottom:.5rem;color:var(--ink);font-size:.95rem}
+.edu-box p,.edu-box li{font-size:.87rem;color:var(--muted);line-height:1.65}
+.edu-box ul{padding-left:1.2rem}
+.formula-box{background:linear-gradient(135deg,var(--forest),var(--emerald));color:#fff;border-radius:var(--rlg);padding:1.4rem;text-align:center;margin:1.25rem 0}
+.formula-box .formula{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold-lt);margin:.5rem 0}
+.interactive-neraca input[type=number]{border:1px solid var(--border);border-radius:6px;padding:.35rem .6rem;font-size:.85rem;width:120px;text-align:right;font-family:inherit;outline:none}
+.interactive-neraca input:focus{border-color:var(--emerald)}
+.step-circle{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--emerald),var(--jade));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}
+
+/* ======= GOV PRODUCT MONITOR ======= */
+.prod-monitor-card{background:#fff;border-radius:var(--rlg);border:1px solid var(--border);overflow:hidden;display:flex;gap:0;margin-bottom:1rem;transition:all .22s}
+.prod-monitor-card:hover{box-shadow:var(--shgov);border-color:var(--gov-mid)}
+.pmc-img{width:90px;min-height:90px;background:linear-gradient(135deg,#e8f5ee,#d4eddc);display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0;overflow:hidden}
+.pmc-img img{width:100%;height:100%;object-fit:cover}
+.pmc-body{flex:1;padding:.875rem 1.1rem}
+.pmc-actions{padding:.875rem;display:flex;flex-direction:column;gap:.5rem;justify-content:center;border-left:1px solid var(--border)}
+
+/* ======= LOGIN GOV ======= */
+.login-gov-wrap{min-height:calc(100vh - 64px);display:grid;grid-template-columns:1fr 1fr}
+.login-gov-left{background:linear-gradient(160deg,var(--gov-dark) 0%,#162d6b 60%,var(--gov-mid) 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:4rem;position:relative;overflow:hidden}
+.login-gov-left::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='40,5 75,22 75,58 40,75 5,58 5,22' fill='none' stroke='%23fff' stroke-width='.5' opacity='0.07'/%3E%3C/svg%3E")}
+.login-gov-right{display:flex;align-items:center;justify-content:center;padding:3rem;background:var(--parch)}
+
+/* ======= LOGIN UMKM ======= */
+.login-umkm-wrap{min-height:calc(100vh - 64px);display:grid;grid-template-columns:1fr 1fr}
+.login-umkm-left{background:linear-gradient(160deg,var(--forest) 0%,#1a4a2e 55%,var(--emerald) 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:4rem;position:relative;overflow:hidden}
+.login-umkm-left::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='42' fill='none' stroke='%23fff' stroke-width='.5' opacity='0.07'/%3E%3Ccircle cx='50' cy='50' r='28' fill='none' stroke='%23fff' stroke-width='.4' opacity='0.06'/%3E%3C/svg%3E")}
+.login-umkm-right{display:flex;align-items:center;justify-content:center;padding:3rem;background:var(--parch)}
+.login-box{width:100%;max-width:420px}
+.feat-list{list-style:none}
+.feat-list li{display:flex;align-items:center;gap:.7rem;font-size:.88rem;opacity:.85;margin-bottom:.6rem}
+.feat-list li::before{content:'✓';background:rgba(255,255,255,.14);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
+
+/* ======= FOOTER ======= */
+footer{background:var(--forest);color:rgba(255,255,255,.62);text-align:center;padding:1.75rem;font-size:.82rem}
+footer strong{color:var(--gold-lt)}
+
+/* ======= FEATURE CARDS ======= */
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.feat-card{background:var(--cream);border-radius:var(--rlg);padding:1.85rem 1.4rem;border:1px solid var(--border);text-align:center;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--forest),var(--emerald));opacity:0;transition:opacity .3s}
+.feat-card:hover::before{opacity:1}
+.feat-card:hover{transform:translateY(-6px);box-shadow:var(--shlg)}
+.feat-card .fi{width:60px;height:60px;margin:0 auto .9rem;background:linear-gradient(135deg,#e8f5ee,#d4eddc);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;transition:all .3s;position:relative;z-index:1}
+.feat-card:hover .fi{background:rgba(255,255,255,.15)}
+.feat-card h3{font-size:.95rem;font-weight:700;margin-bottom:.45rem;color:var(--ink);position:relative;z-index:1;transition:color .3s}
+.feat-card p{font-size:.82rem;color:var(--muted);line-height:1.55;position:relative;z-index:1;transition:color .3s}
+.feat-card:hover h3{color:#fff}
+.feat-card:hover p{color:rgba(255,255,255,.72)}
+
+/* ======= RESPONSIVE ======= */
+@media(max-width:1024px){.prod-grid,.feat-grid,.stat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .login-umkm-left,.login-gov-left{display:none}
+  .login-umkm-wrap,.login-gov-wrap{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
+  .navbar{padding:0 1rem}
+}
+@media(max-width:640px){.prod-grid,.feat-grid,.stat-grid,.fin-cards{grid-template-columns:1fr}}
+.fade-in{animation:fadeUp .5s ease both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+
+/* ======= RATING STARS ======= */
+.stars{color:#f59e0b;font-size:.85rem;letter-spacing:1px}
+.rating-count{color:var(--muted);font-size:.75rem;margin-left:3px}
+
+/* ======= QUICK ACTIONS ======= */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem}
+.qa-btn{background:#fff;border:1px solid var(--border);border-radius:var(--rlg);padding:1.1rem;cursor:pointer;transition:all .22s;text-align:center;font-family:inherit}
+.qa-btn:hover{border-color:var(--emerald);box-shadow:var(--sh);transform:translateY(-2px)}
+.qa-btn .qa-ico{font-size:1.75rem;margin-bottom:.4rem}
+.qa-btn .qa-lbl{font-size:.77rem;font-weight:600;color:var(--muted)}
+
+/* ======= KIP INFO CARDS ======= */
+.kip-card{background:linear-gradient(135deg,var(--gov-dark),var(--gov-blue));color:#fff;border-radius:var(--rlg);padding:1.3rem;position:relative;overflow:hidden}
+.kip-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 80% 30%,rgba(96,165,250,.18) 0%,transparent 70%)}
+.kip-inner{position:relative;z-index:1}
+
+/* ======= DIVIDER ======= */
+.divider{display:flex;align-items:center;gap:.875rem;color:var(--muted);font-size:.83rem;margin:1.1rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ======= PRODUCT STATUS TIMELINE (GOV) ======= */
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:1.25rem}
+.tl-dot{position:absolute;left:-1.85rem;top:.2rem;width:16px;height:16px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--border)}
+.tl-dot.ok{background:var(--success);box-shadow:0 0 0 2px #dcfce7}
+.tl-dot.pending{background:var(--warn);box-shadow:0 0 0 2px #fef9c3}
+.tl-dot.rej{background:var(--danger);box-shadow:0 0 0 2px #fee2e2}
+.tl-date{font-size:.72rem;color:var(--muted);margin-bottom:2px}
+.tl-text{font-size:.87rem;font-weight:600}
+.tl-sub{font-size:.78rem;color:var(--muted);margin-top:2px}
+
+.proto-banner{background:#1e3a5f;color:#fbbf24;font-size:.72rem;font-weight:700;text-align:center;padding:.45rem 1rem;letter-spacing:.5px;position:relative;z-index:999;border-bottom:2px solid rgba(251,191,36,.35)}
+.proto-banner span{color:#fff;font-weight:400}
+.wm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;display:flex;align-items:center;justify-content:center;padding:1rem}
+.wm-box{background:#fff;border-radius:20px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.wm-head{background:linear-gradient(135deg,#0f172a,#1e3a5f);padding:1.75rem;text-align:center;color:#fff}
+.wm-head h2{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;margin-bottom:.35rem}
+.wm-head p{opacity:.72;font-size:.82rem}
+.wm-badge{display:inline-block;background:rgba(251,191,36,.2);border:1px solid rgba(251,191,36,.4);color:#fbbf24;padding:.28rem .85rem;border-radius:20px;font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem}
+.wm-body{padding:1.5rem 1.75rem}
+.wm-dev{background:linear-gradient(135deg,#f0faf4,#e8f5ee);border:1.5px solid #bbf7d0;border-radius:14px;padding:.95rem 1.1rem;display:flex;align-items:center;gap:.875rem;margin-bottom:1rem}
+.wm-dev-ico{width:46px;height:46px;background:linear-gradient(135deg,#1a5c38,#2d8a55);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0}
+.wm-dev-name{font-weight:800;font-size:.9rem;color:#181a18;margin-bottom:2px}
+.wm-dev-univ{font-size:.75rem;color:#6b7563}
+.wm-item{display:flex;align-items:start;gap:.75rem;margin-bottom:.8rem;padding:.8rem;border-radius:10px;border:1px solid #ddd8cc;background:#faf7f2}
+.wm-item-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.wm-item-t{font-weight:700;font-size:.83rem;margin-bottom:.15rem;color:#181a18}
+.wm-item-p{font-size:.77rem;color:#6b7563;line-height:1.5}
+.dev-credit{background:linear-gradient(135deg,#060d18,#0d1f3d);padding:1.5rem;margin-top:auto;border-top:2px solid rgba(251,191,36,.2)}
+.dev-credit-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.dev-credit-name{color:#fff;font-weight:700;font-size:.85rem}
+.dev-credit-univ{color:rgba(255,255,255,.5);font-size:.75rem;margin-top:1px}
+.dev-credit .chip{display:inline-block;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#fbbf24;padding:.25rem .75rem;border-radius:20px;font-size:.68rem;font-weight:700;margin-left:.5rem}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="wm-overlay" id="proto-warn">
+  <div class="wm-box">
+    <div class="wm-head">
+      <div class="wm-badge">⚠️ PROTOTYPE UJI COBA</div>
+      <h2>Platform dalam Mode Uji Coba</h2>
+      <p>Baca informasi penting berikut sebelum menggunakan platform ini</p>
+    </div>
+    <div class="wm-body">
+      <div class="wm-dev">
+        <div class="wm-dev-ico">👨‍💻</div>
+        <div>
+          <div class="wm-dev-name">Muhammad Setio Budi</div>
+          <div class="wm-dev-univ">Universitas Mayjen Sungkono · Mojokerto</div>
+          <div style="font-size:.7rem;color:#6b7563;margin-top:2px">Pengembang Platform Digital UMKM Mojokerto</div>
+        </div>
+      </div>
+      <div class="wm-item">
+        <div class="wm-item-ico" style="background:#fef9c3">🧪</div>
+        <div><div class="wm-item-t">Masih dalam Tahap Uji Coba (Prototype)</div><div class="wm-item-p">Platform ini belum digunakan secara resmi untuk operasional. Masih dalam proses pengembangan dan pengujian fitur.</div></div>
+      </div>
+      <div class="wm-item">
+        <div class="wm-item-ico" style="background:#dbeafe">📊</div>
+        <div><div class="wm-item-t">Data yang Digunakan Hanya Ilustrasi</div><div class="wm-item-p">Seluruh data UMKM, produk, harga, transaksi, dan statistik yang ditampilkan adalah <strong>data fiktif</strong> — bukan data nyata Kota Mojokerto.</div></div>
+      </div>
+      <div class="wm-item">
+        <div class="wm-item-ico" style="background:#dcfce7">🗺️</div>
+        <div><div class="wm-item-t">Gambaran Implementasi</div><div class="wm-item-p">Prototype ini memberikan gambaran bagaimana sistem akan bekerja apabila diimplementasikan secara resmi dengan data nyata dari Bapperida, Diskopukmperindag, dan Dinkominfo.</div></div>
+      </div>
+      <button onclick="document.getElementById('proto-warn').style.display='none'" style="width:100%;padding:.8rem;background:linear-gradient(135deg,#1a5c38,#2d8a55);color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:.25rem">✅ Saya Mengerti — Masuk ke Demo Platform</button>
+      <div style="text-align:center;margin-top:.75rem;font-size:.72rem;color:#6b7563">© 2025 Muhammad Setio Budi · Universitas Mayjen Sungkono</div>
+    </div>
+  </div>
+</div>
+<div class="proto-banner">⚠️ PROTOTYPE · DATA ILUSTRASI &nbsp;|&nbsp; <span>Dikembangkan oleh <strong>Muhammad Setio Budi</strong> · Universitas Mayjen Sungkono · Gambaran Implementasi</strong></span> &nbsp;|&nbsp; ⚠️ BUKAN DATA RESMI</div>
+<nav class="navbar">
+  <div class="brand" onclick="go('home')">
+    <div class="brand-ico">🏪</div>
+    <div><div class="brand-name">UMKM Mojok</div><small class="brand-sub">Kota Mojokerto</small></div>
+  </div>
+  <ul class="nav-links">
+    <li><button onclick="go('home')" id="nb-home" class="active">Home</button></li>
+    <li><button onclick="go('market')" id="nb-market">Marketplace</button></li>
+    <li><button onclick="go('trending')" id="nb-trending">🔥 Tren</button></li>
+    <li><button onclick="go('login')" class="nav-gold">Login UMKM</button></li>
+    <li><button onclick="go('lgov')" class="nav-gov">🏛️ Login Pemerintah</button></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+    <div class="hero-pattern"></div>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="batik" x="0" y="0" width="110" height="110" patternUnits="userSpaceOnUse">
+        <polygon points="55,4 106,28 106,82 55,106 4,82 4,28" fill="none" stroke="rgba(232,160,32,0.07)" stroke-width="1"/>
+        <polygon points="55,18 94,36 94,74 55,92 16,74 16,36" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width=".7"/>
+        <circle cx="55" cy="55" r="7" fill="rgba(232,160,32,0.05)"/>
+        <circle cx="55" cy="55" r="3" fill="rgba(255,255,255,0.05)"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#batik)"/>
+    </svg>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">✨ Platform Resmi UMKM Kota Mojokerto</div>
+        <h1 class="hero-title">Bangkitkan <span class="gold-txt">UMKM</span><br>Bumi <span class="gold-txt italic" style="font-style:italic">Majapahit</span></h1>
+        <p class="hero-desc">Satu platform untuk seluruh UMKM Mojokerto. Jual produk lokal, catat keuangan digital, dan tumbuh bersama ekosistem kota yang dipantau pemerintah.</p>
+        <div class="hero-cta">
+          <button onclick="go('market')" class="btn btn-gold btn-lg">🛒 Jelajahi Marketplace</button>
+          <button onclick="go('login')" class="btn btn-ghost btn-lg">Daftar UMKM Gratis →</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card"><div class="hc-ico">🏪</div><div><div class="hc-val">29.000+</div><div class="hc-lbl">UMKM Terdaftar</div></div></div>
+        <div class="hero-card"><div class="hc-ico">🗺️</div><div><div class="hc-val">3</div><div class="hc-lbl">Kecamatan Terlayani</div></div></div>
+        <div class="hero-card"><div class="hc-ico">📦</div><div><div class="hc-val">5.000+</div><div class="hc-lbl">Produk Aktif</div></div></div>
+        <div class="hero-card"><div class="hc-ico">🏛️</div><div><div class="hc-val">3</div><div class="hc-lbl">Lembaga Pengawas</div></div></div>
+      </div>
+    </div>
+    <div class="scroll-hint">↓ Gulir untuk menjelajahi</div>
+  </section>
+
+  <section class="sec sec-alt">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-tag">🚀 Fitur Unggulan</div>
+        <h2 class="sec-title">Lebih dari Sekadar Marketplace</h2>
+        <p class="sec-sub">Ekosistem digital lengkap dengan pengawasan pemerintah real-time</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat-card d1 fade-in" onclick="go('market')"><div class="fi">🛍️</div><h3>Marketplace Nyata</h3><p>Upload foto produk asli dari galeri. Tampil ke ribuan pembeli lokal.</p></div>
+        <div class="feat-card d2 fade-in" onclick="go('dash')"><div class="fi">📒</div><h3>Pembukuan & Neraca</h3><p>Catat keuangan + panduan lengkap neraca, laba-rugi, dan edukasi UMKM.</p></div>
+        <div class="feat-card d3 fade-in" onclick="go('gdash')"><div class="fi">📊</div><h3>Pantauan Pemerintah</h3><p>Bapperida & Dinkominfo pantau perkembangan produk dan UMKM secara langsung.</p></div>
+        <div class="feat-card d4 fade-in" onclick="go('trending')"><div class="fi">🔥</div><h3>Produk Tren Lokal</h3><p>Ranking produk paling viral berdasarkan data transaksi dan kunjungan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-tag">⭐ Produk Unggulan</div>
+        <h2 class="sec-title">Pilihan Terbaik UMKM</h2>
+        <p class="sec-sub">Produk asli dari pengrajin dan pedagang Kota Mojokerto</p>
+      </div>
+      <div class="prod-grid" id="home-prods"></div>
+      <div style="text-align:center;margin-top:2.5rem">
+        <button onclick="go('market')" class="btn btn-primary btn-lg">Lihat Semua Produk →</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--forest);padding:4rem 0">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center">
+        <div><div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--gold)">29K+</div><div style="color:rgba(255,255,255,.6);margin-top:4px;font-size:.9rem">UMKM Aktif</div></div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--gold)">3</div><div style="color:rgba(255,255,255,.6);margin-top:4px;font-size:.9rem">Kecamatan</div></div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--gold)">5K+</div><div style="color:rgba(255,255,255,.6);margin-top:4px;font-size:.9rem">Produk Lokal</div></div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--gold)">100%</div><div style="color:rgba(255,255,255,.6);margin-top:4px;font-size:.9rem">Gratis untuk UMKM</div></div>
+      </div>
+    </div>
+  </section>
+  <footer><strong>UMKM Mojok</strong> — Platform Digital UMKM Kota Mojokerto<br>Dipantau oleh Bapperida · Diskopukmperindag · Dinkominfo</footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: MARKETPLACE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-market">
+  <div class="page-hero">
+    <div class="container inner">
+      <h1>🛒 Marketplace UMKM Mojokerto</h1>
+      <p>Produk asli dari pengrajin dan pedagang lokal — foto nyata dari galeri penjual</p>
+    </div>
+  </div>
+  <div style="background:#fff;padding:1.2rem 0;border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:90;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+    <div class="container">
+      <div class="searchbar" style="max-width:580px;margin-bottom:1rem"><input id="mkt-q" placeholder="Cari produk UMKM Mojokerto..."><button>🔍</button></div>
+      <div class="chips" id="mkt-cats"></div>
+    </div>
+  </div>
+  <div class="container" style="padding-top:1.75rem;padding-bottom:3rem">
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:1.75rem">
+      <aside style="background:#fff;border-radius:var(--rlg);padding:1.2rem;border:1px solid var(--border);height:fit-content;position:sticky;top:148px">
+        <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);font-weight:700;margin-bottom:.6rem">Kecamatan</div>
+        <div id="mkt-kec"></div>
+        <div style="height:1px;background:var(--border);margin:.9rem 0"></div>
+        <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);font-weight:700;margin-bottom:.6rem">Harga</div>
+        <div id="mkt-price"></div>
+        <div style="height:1px;background:var(--border);margin:.9rem 0"></div>
+        <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);font-weight:700;margin-bottom:.6rem">Urutkan</div>
+        <div id="mkt-sort"></div>
+      </aside>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <p style="font-size:.875rem;color:var(--muted)">Menampilkan <span id="mkt-count" style="color:var(--emerald);font-weight:700">0</span> produk</p>
+          <div style="display:flex;gap:.5rem;align-items:center;font-size:.8rem;color:var(--muted)">
+            <span>Tampilan:</span>
+            <button onclick="setView('grid')" id="view-grid" class="btn btn-sm" style="background:var(--emerald);color:#fff">⊞</button>
+            <button onclick="setView('list')" id="view-list" class="btn btn-sm btn-outline">☰</button>
+          </div>
+        </div>
+        <div id="mkt-grid" class="prod-grid"></div>
+        <div id="mkt-list" style="display:none;flex-direction:column;gap:.875rem"></div>
+        <div id="mkt-empty" style="display:none;text-align:center;padding:4rem;color:var(--muted)">
+          <div style="font-size:3rem;margin-bottom:.875rem">🔍</div>
+          <h3 style="margin-bottom:.4rem">Produk tidak ditemukan</h3>
+          <p>Coba kata kunci lain atau ubah filter</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><strong>UMKM Mojok</strong> — Platform Digital UMKM Kota Mojokerto</footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: PRODUCT DETAIL
+══════════════════════════════════════════════ -->
+<div class="page" id="page-prod">
+  <div class="breadcrumb"><div class="container"><div class="bc-inner"><a onclick="go('home')">🏠 Home</a> › <a onclick="go('market')">Marketplace</a> › <span id="bc-name">Produk</span></div></div></div>
+  <div class="container" style="padding:3rem 0">
+    <div id="prod-detail" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start"></div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:3rem 0">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:1.5rem">Produk Lainnya</h3>
+    <div class="prod-grid" id="prod-related"></div>
+  </div>
+  <footer style="margin-top:2rem"><strong>UMKM Mojok</strong></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: TRENDING
+══════════════════════════════════════════════ -->
+<div class="page" id="page-trending">
+  <div class="trend-hero">
+    <div class="container" style="position:relative;z-index:1">
+      <h1 style="font-family:'Playfair Display',serif;font-size:2.75rem;font-weight:900;margin-bottom:.5rem">🔥 Produk Tren Mojokerto</h1>
+      <p style="opacity:.82;margin-bottom:1.75rem">Ranking produk paling populer berdasarkan views & transaksi real-time</p>
+      <div style="display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.85rem 1.35rem;display:flex;align-items:center;gap:.75rem"><span style="font-size:1.3rem">📊</span><div><strong style="display:block;font-size:.9rem">Metrik Skor</strong><span style="font-size:.75rem;opacity:.7">Views 40% + Terjual 60%</span></div></div>
+        <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.85rem 1.35rem;display:flex;align-items:center;gap:.75rem"><span style="font-size:1.3rem">🔄</span><div><strong style="display:block;font-size:.9rem">Real-time</strong><span style="font-size:.75rem;opacity:.7">Update otomatis</span></div></div>
+        <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.85rem 1.35rem;display:flex;align-items:center;gap:.75rem"><span style="font-size:1.3rem">📍</span><div><strong style="display:block;font-size:.9rem">Khusus Mojokerto</strong><span style="font-size:.75rem;opacity:.7">Data produk lokal</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="padding:3rem 0">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:2rem">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;margin-bottom:1.4rem">📈 Peringkat Produk</h2>
+        <div id="trend-list"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.4rem">
+        <div class="card"><div class="card-head">📊 Terjual per Kategori</div><div class="card-body" id="trend-cats"></div></div>
+        <div class="card"><div class="card-head">👁️ Total Tampilan</div><div class="card-body"><div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--emerald)" id="trend-views">0</div><div style="font-size:.78rem;color:var(--muted)">dari seluruh produk UMKM</div></div></div>
+        <div class="card"><div class="card-head">🏆 Kategori Terlaris</div><div class="card-body"><div style="font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--gold)" id="trend-topcat"></div></div></div>
+      </div>
+    </div>
+  </div>
+  <footer><strong>UMKM Mojok</strong></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: LOGIN UMKM
+══════════════════════════════════════════════ -->
+<div class="page" id="page-login">
+  <div class="login-umkm-wrap">
+    <div class="login-umkm-left">
+      <div style="position:relative;z-index:1">
+        <div style="font-size:3.5rem;margin-bottom:1.4rem">🏪</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;margin-bottom:.875rem;line-height:1.2">Masuk ke Platform<br>UMKM Mojok</h2>
+        <p style="opacity:.78;line-height:1.72;margin-bottom:1.75rem;font-size:.93rem">Kelola toko online, catat keuangan, dan pelajari neraca usaha Anda secara digital.</p>
+        <ul class="feat-list">
+          <li>Upload foto produk nyata dari galeri</li>
+          <li>Pembukuan digital + panduan neraca lengkap</li>
+          <li>Produk dipantau & diverifikasi pemerintah</li>
+          <li>Statistik penjualan real-time</li>
+          <li>Terhubung pembeli via WhatsApp</li>
+        </ul>
+        <div style="margin-top:2rem;padding:1rem;background:rgba(255,255,255,.1);border-radius:12px;border:1px solid rgba(255,255,255,.15)">
+          <div style="font-size:.72rem;opacity:.6;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.8px">Demo akun</div>
+          <div style="font-size:.87rem">Email: <strong>demo@umkm.com</strong> · Password: <strong>demo123</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="login-umkm-right">
+      <div class="login-box">
+        <div style="text-align:center;margin-bottom:1.75rem">
+          <div style="font-size:2.75rem;margin-bottom:.65rem">👋</div>
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.85rem;margin-bottom:.25rem">Selamat Datang</h1>
+          <p style="color:var(--muted);font-size:.875rem">Masuk ke Dashboard UMKM Anda</p>
+        </div>
+        <div id="login-alert"></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-control" id="l-email" placeholder="email@umkm.com"></div>
+        <div class="form-group"><label class="form-label">Password</label><input type="password" class="form-control" id="l-pw" placeholder="Password Anda"></div>
+        <div style="text-align:right;margin-bottom:1.2rem"><a href="#" style="color:var(--emerald);font-size:.83rem;text-decoration:none;font-weight:500">Lupa password?</a></div>
+        <button class="btn btn-primary btn-block btn-lg" onclick="doLoginUMKM()">Masuk ke Dashboard</button>
+        <div class="divider">atau</div>
+        <button onclick="go('dash')" class="btn btn-outline btn-block">🔍 Demo tanpa Login</button>
+        <div style="text-align:center;margin-top:1.4rem;font-size:.875rem;color:var(--muted)">Belum punya akun? <a href="#" style="color:var(--emerald);font-weight:600;text-decoration:none">Daftar Gratis →</a></div>
+        <div style="text-align:center;margin-top:.75rem;font-size:.82rem"><button onclick="go('lgov')" style="color:var(--gov-mid);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit">🏛️ Login sebagai Pemerintah</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: LOGIN PEMERINTAH
+══════════════════════════════════════════════ -->
+<div class="page" id="page-lgov">
+  <div class="login-gov-wrap">
+    <div class="login-gov-left">
+      <div style="position:relative;z-index:1">
+        <div style="font-size:3.5rem;margin-bottom:1.4rem">🏛️</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;margin-bottom:.875rem;line-height:1.2">Portal Resmi<br>Pemerintah Kota</h2>
+        <p style="opacity:.78;line-height:1.72;margin-bottom:1.75rem;font-size:.93rem">Pantau perkembangan UMKM, verifikasi produk, dan lihat data ekonomi kota secara real-time.</p>
+        <ul class="feat-list">
+          <li>Dashboard ekonomi UMKM real-time</li>
+          <li>Verifikasi & pantau produk yang diajukan</li>
+          <li>Grafik pertumbuhan per kecamatan</li>
+          <li>Laporan periodik otomatis</li>
+          <li>Akses Bapperida, Diskopukmperindag, Dinkominfo</li>
+        </ul>
+        <div style="margin-top:2rem;padding:1rem;background:rgba(255,255,255,.1);border-radius:12px;border:1px solid rgba(255,255,255,.15)">
+          <div style="font-size:.72rem;opacity:.6;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.8px">Demo akun pemerintah</div>
+          <div style="font-size:.87rem">Email: <strong>admin@mojokerto.go.id</strong> · Password: <strong>gov2025</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="login-gov-right">
+      <div class="login-box">
+        <div style="text-align:center;margin-bottom:1.75rem">
+          <div style="font-size:2.75rem;margin-bottom:.65rem">🔐</div>
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.85rem;margin-bottom:.25rem">Login Pemerintah</h1>
+          <p style="color:var(--muted);font-size:.875rem">Portal Eksklusif Pemkot Mojokerto</p>
+        </div>
+        <div style="background:var(--gov-lt);border:1px solid #bfdbfe;border-radius:var(--r);padding:.75rem 1rem;margin-bottom:1.2rem;font-size:.82rem;color:var(--gov-blue)">🔒 Halaman ini hanya untuk pegawai pemerintah Kota Mojokerto yang berwenang.</div>
+        <div id="lgov-alert"></div>
+        <div class="form-group"><label class="form-label">Email Dinas <span>*</span></label><input type="email" class="form-control" id="lg-email" placeholder="nama@mojokerto.go.id"></div>
+        <div class="form-group"><label class="form-label">Password <span>*</span></label><input type="password" class="form-control" id="lg-pw" placeholder="Password instansi"></div>
+        <div class="form-group"><label class="form-label">Instansi</label>
+          <select class="form-control" id="lg-inst">
+            <option value="bapperida">Bapperida</option>
+            <option value="diskop">Diskopukmperindag</option>
+            <option value="dinkom">Dinkominfo</option>
+          </select>
+        </div>
+        <button class="btn btn-gov btn-block btn-lg" style="margin-top:.5rem" onclick="doLoginGov()">🏛️ Masuk Dashboard Pemerintah</button>
+        <div class="divider">atau</div>
+        <button onclick="go('gdash')" class="btn btn-outline btn-block" style="border-color:var(--gov-mid);color:var(--gov-mid)" onmouseover="this.style.background='var(--gov-mid)';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color='var(--gov-mid)'">🔍 Demo Dashboard Pemerintah</button>
+        <div style="text-align:center;margin-top:1.2rem;font-size:.82rem"><button onclick="go('login')" style="color:var(--emerald);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit">← Login sebagai UMKM</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: DASHBOARD UMKM
+══════════════════════════════════════════════ -->
+<div class="page" id="page-dash">
+  <div class="dash-wrap">
+    <aside class="sidebar">
+      <div class="sb-section">Menu Utama</div>
+      <ul class="sb-nav">
+        <li><button onclick="dTab('ov')" id="sbt-ov" class="on"><span class="sb-ico">📊</span>Dashboard</button></li>
+        <li><button onclick="dTab('tp')" id="sbt-tp"><span class="sb-ico">➕</span>Tambah Produk</button></li>
+        <li><button onclick="dTab('keu')" id="sbt-keu"><span class="sb-ico">📒</span>Catatan Keuangan</button></li>
+        <li><button onclick="dTab('edu')" id="sbt-edu"><span class="sb-ico">📚</span>Edukasi Neraca</button></li>
+        <li><button onclick="go('market')"><span class="sb-ico">🛒</span>Lihat Marketplace</button></li>
+        <li><button onclick="go('trending')"><span class="sb-ico">🔥</span>Tren Produk</button></li>
+      </ul>
+      <div class="sb-section">Akun</div>
+      <ul class="sb-nav">
+        <li><button onclick="go('home')"><span class="sb-ico">🚪</span>Keluar</button></li>
+      </ul>
+      <div class="sb-user" style="margin-top:auto">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🧑‍💼</div>
+        <div class="su-name">UMKM Bu Sari</div>
+        <div class="su-role">Kuliner · Kranggan</div>
+      </div>
+    </aside>
+    <main class="main-area">
+
+      <!-- OVERVIEW -->
+      <div id="dt-ov">
+        <div class="welcome-bar">
+          <div><h2>Halo, Bu Sari! 👋</h2><p>Ringkasan toko Anda hari ini, Jum'at 6 Maret 2025</p></div>
+          <button onclick="dTab('tp')" class="btn btn-gold">➕ Tambah Produk</button>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="s-ico">📦</div><div class="s-val" id="ov-totprod">0</div><div class="s-lbl">Total Produk</div><div class="s-trend">↑ 2 produk baru bulan ini</div></div>
+          <div class="stat-box"><div class="s-ico">💰</div><div class="s-val">Rp2,4Jt</div><div class="s-lbl">Pemasukan Bulan Ini</div><div class="s-trend">↑ 12% dari bulan lalu</div></div>
+          <div class="stat-box"><div class="s-ico">🛒</div><div class="s-val">42</div><div class="s-lbl">Pesanan Bulan Ini</div><div class="s-trend">↑ 8 pesanan baru</div></div>
+          <div class="stat-box"><div class="s-ico">👁️</div><div class="s-val" id="ov-views">0</div><div class="s-lbl">Total Views Produk</div><div class="s-trend">↑ 15% minggu ini</div></div>
+        </div>
+        <div class="qa-grid">
+          <button class="qa-btn" onclick="dTab('tp')"><div class="qa-ico">➕</div><div class="qa-lbl">Tambah Produk</div></button>
+          <button class="qa-btn" onclick="dTab('keu')"><div class="qa-ico">📒</div><div class="qa-lbl">Catat Transaksi</div></button>
+          <button class="qa-btn" onclick="dTab('edu')"><div class="qa-ico">📚</div><div class="qa-lbl">Panduan Neraca</div></button>
+          <button class="qa-btn" onclick="go('trending')"><div class="qa-ico">🔥</div><div class="qa-lbl">Produk Tren</div></button>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem">
+          <div class="card">
+            <div class="card-head">📦 Produk Saya <span style="font-size:.75rem;color:var(--muted);font-weight:400" id="ov-prodstatus"></span></div>
+            <div class="tbl-wrap">
+              <table><thead><tr><th>Produk</th><th>Harga</th><th>Views</th><th>Status</th></tr></thead>
+              <tbody id="ov-prodtbl"></tbody></table>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.4rem">
+            <div class="card">
+              <div class="card-head">📊 Keuangan Bulan Ini</div>
+              <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:.6rem">
+                  <div style="display:flex;justify-content:space-between;padding:.6rem .75rem;background:#f0faf4;border-radius:9px;font-size:.875rem"><span>Pemasukan</span><strong style="color:var(--success)">Rp2.400.000</strong></div>
+                  <div style="display:flex;justify-content:space-between;padding:.6rem .75rem;background:#fff5f5;border-radius:9px;font-size:.875rem"><span>Pengeluaran</span><strong style="color:var(--danger)">Rp850.000</strong></div>
+                  <div style="display:flex;justify-content:space-between;padding:.75rem;background:linear-gradient(135deg,#e8f5ee,#d4eddc);border-radius:9px;font-weight:700;font-size:.9rem"><span>Laba Usaha</span><strong style="color:var(--emerald)">Rp1.550.000</strong></div>
+                </div>
+                <button onclick="dTab('keu')" class="btn btn-outline btn-block btn-sm" style="margin-top:1rem">Kelola Keuangan →</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head">💡 Tips Usaha</div>
+              <div class="card-body" style="font-size:.84rem;color:var(--muted);line-height:1.65">Foto produk berkualitas tinggi meningkatkan views hingga <strong style="color:var(--emerald)">3× lipat</strong>. Upload foto asli dari galeri untuk menarik lebih banyak pembeli!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAMBAH PRODUK -->
+      <div id="dt-tp" style="display:none">
+        <div style="margin-bottom:1.75rem">
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">➕ Tambah Produk Baru</h1>
+          <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Produk akan diverifikasi oleh Dinas sebelum tampil di marketplace</p>
+        </div>
+        <div id="tp-alert"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+          <div>
+            <div class="card" style="margin-bottom:1.5rem">
+              <div class="card-head">📋 Informasi Produk</div>
+              <div class="card-body">
+                <div class="form-group"><label class="form-label">Nama Produk <span>*</span></label><input type="text" class="form-control" id="tp-nm" placeholder="Contoh: Onde Onde Mojokerto"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+                  <div class="form-group"><label class="form-label">Harga (Rp) <span>*</span></label><input type="number" class="form-control" id="tp-hrg" placeholder="15000"></div>
+                  <div class="form-group"><label class="form-label">Stok</label><input type="number" class="form-control" id="tp-stk" placeholder="100"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Kategori <span>*</span></label>
+                  <select class="form-control" id="tp-kat"><option value="">-- Pilih Kategori --</option><option>Kuliner</option><option>Fashion</option><option>Kerajinan</option><option>Jasa</option></select>
+                </div>
+                <div class="form-group"><label class="form-label">Kecamatan <span>*</span></label>
+                  <select class="form-control" id="tp-kec"><option value="">-- Pilih Kecamatan --</option><option>Kranggan</option><option>Magersari</option><option>Prajuritkulon</option></select>
+                </div>
+                <div class="form-group"><label class="form-label">Nomor WhatsApp Penjual <span>*</span></label><input type="tel" class="form-control" id="tp-wa" placeholder="628123456789"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head">📝 Deskripsi & Detail</div>
+              <div class="card-body">
+                <div class="form-group"><label class="form-label">Deskripsi Produk</label><textarea class="form-control" id="tp-desc" placeholder="Jelaskan produk secara detail: bahan baku, keunggulan, cara pesan..."></textarea></div>
+                <div class="form-group"><label class="form-label">Berat/Ukuran</label><input type="text" class="form-control" id="tp-brt" placeholder="Contoh: 250gr / 30x40cm"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:1.5rem">
+              <div class="card-head">📸 Upload Foto Produk Nyata</div>
+              <div class="card-body">
+                <div class="upload-zone" id="upload-zone" onclick="document.getElementById('tp-file').click()">
+                  <input type="file" id="tp-file" accept="image/*" multiple style="display:none" onchange="handleUpload(this)">
+                  <div class="u-ico">📷</div>
+                  <p style="font-weight:700;margin-bottom:.3rem">Klik atau drag foto dari galeri</p>
+                  <p style="font-size:.8rem;color:var(--muted)">JPG, PNG, WEBP · Maks 3 foto · 5MB/foto</p>
+                  <div style="margin-top:.875rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">
+                    <span style="background:#e8f5ee;color:var(--emerald);border-radius:20px;padding:2px 10px;font-size:.72rem;font-weight:600">✓ Foto nyata dari galeri</span>
+                    <span style="background:#e8f5ee;color:var(--emerald);border-radius:20px;padding:2px 10px;font-size:.72rem;font-weight:600">✓ Preview langsung</span>
+                  </div>
+                </div>
+                <div class="preview-grid" id="tp-prev" style="display:none"></div>
+                <div id="upload-status" style="margin-top:.75rem;font-size:.8rem;color:var(--muted)"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head">⚠️ Informasi Verifikasi</div>
+              <div class="card-body" style="font-size:.84rem;color:var(--muted);line-height:1.65">
+                <div style="display:flex;flex-direction:column;gap:.65rem">
+                  <div style="display:flex;gap:.65rem;align-items:start"><div style="width:24px;height:24px;background:#fef9c3;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0">1</div><span>Produk dikirim ke antrian verifikasi Dinas</span></div>
+                  <div style="display:flex;gap:.65rem;align-items:start"><div style="width:24px;height:24px;background:#dbeafe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0">2</div><span>Petugas Diskopukmperindag meninjau produk (1-2 hari kerja)</span></div>
+                  <div style="display:flex;gap:.65rem;align-items:start"><div style="width:24px;height:24px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0">3</div><span>Produk disetujui → langsung tampil di marketplace</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:.875rem;margin-top:1.4rem">
+              <button onclick="dTab('ov')" class="btn btn-outline" style="flex:1">Batal</button>
+              <button onclick="submitProd()" class="btn btn-gold btn-lg" style="flex:2">🚀 Kirim untuk Verifikasi</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEUANGAN -->
+      <div id="dt-keu" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1.75rem">
+          <div><h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">📒 Catatan Keuangan</h1><p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Catat setiap transaksi usaha Anda</p></div>
+          <div style="font-size:.8rem;color:var(--muted);background:#fff;border:1px solid var(--border);padding:.45rem .9rem;border-radius:var(--r)">📅 Maret 2025</div>
+        </div>
+        <div class="fin-cards">
+          <div class="fin-card fc-in"><div class="f-lbl">💚 Total Pemasukan</div><div class="f-amt" id="k-masuk">Rp0</div></div>
+          <div class="fin-card fc-out"><div class="f-lbl">❤️ Total Pengeluaran</div><div class="f-amt" id="k-keluar">Rp0</div></div>
+          <div class="fin-card fc-profit"><div class="f-lbl">⭐ Laba Bersih</div><div class="f-amt" id="k-laba">Rp0</div></div>
+        </div>
+        <div id="keu-alert"></div>
+        <div style="background:#fff;border-radius:var(--rlg);border:1px solid var(--border);padding:1.2rem;margin-bottom:1.4rem">
+          <div style="font-size:.82rem;font-weight:700;margin-bottom:.875rem;color:var(--ink)">➕ Tambah Transaksi</div>
+          <div style="display:grid;grid-template-columns:1fr 1.6fr 1fr .9fr auto;gap:.65rem;align-items:end">
+            <div class="form-group" style="margin:0"><label class="form-label" style="font-size:.75rem">Tanggal</label><input type="date" class="form-control" id="k-tgl"></div>
+            <div class="form-group" style="margin:0"><label class="form-label" style="font-size:.75rem">Keterangan</label><input type="text" class="form-control" id="k-ket" placeholder="Penjualan / Beli bahan..."></div>
+            <div class="form-group" style="margin:0"><label class="form-label" style="font-size:.75rem">Jumlah (Rp)</label><input type="number" class="form-control" id="k-jml" placeholder="50000"></div>
+            <div class="form-group" style="margin:0"><label class="form-label" style="font-size:.75rem">Jenis</label>
+              <select class="form-control" id="k-jenis"><option value="pemasukan">💰 Masuk</option><option value="pengeluaran">💸 Keluar</option></select>
+            </div>
+            <button class="btn btn-primary" onclick="addTx()">➕ Tambah</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">📋 Riwayat Transaksi <button class="btn btn-sm btn-danger" onclick="clearTx()">🗑️ Hapus Semua</button></div>
+          <div class="tbl-wrap">
+            <table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Jumlah</th><th>Jenis</th><th>Aksi</th></tr></thead>
+            <tbody id="tx-tbl"></tbody></table>
+            <div id="tx-empty" style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2.5rem;margin-bottom:.75rem">📒</div><p>Belum ada transaksi.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDUKASI NERACA -->
+      <div id="dt-edu" style="display:none">
+        <div style="margin-bottom:1.75rem">
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">📚 Edukasi & Panduan Neraca UMKM</h1>
+          <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Pahami pembukuan bisnis untuk UMKM yang lebih sehat dan berkembang</p>
+        </div>
+        <div class="edu-nav">
+          <button class="edu-tab on" onclick="eTab('dasar')">📖 Dasar Akuntansi</button>
+          <button class="edu-tab" onclick="eTab('neraca')">⚖️ Neraca (Balance Sheet)</button>
+          <button class="edu-tab" onclick="eTab('labarugi')">📈 Laba Rugi</button>
+          <button class="edu-tab" onclick="eTab('arus')">💸 Arus Kas</button>
+          <button class="edu-tab" onclick="eTab('latihan')">🧮 Latihan Interaktif</button>
+        </div>
+
+        <!-- TAB: DASAR -->
+        <div id="edu-dasar" class="edu-content show">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.75rem">
+            <div class="edu-box">
+              <h4>🎯 Apa itu Pembukuan UMKM?</h4>
+              <p>Pembukuan adalah proses mencatat, mengklasifikasikan, dan meringkas semua transaksi keuangan bisnis Anda secara sistematis. Dengan pembukuan yang baik, Anda bisa:</p>
+              <ul style="margin-top:.5rem">
+                <li>Mengetahui laba/rugi usaha setiap bulan</li>
+                <li>Memantau arus uang masuk dan keluar</li>
+                <li>Mengajukan pinjaman ke bank dengan mudah</li>
+                <li>Membuat keputusan bisnis yang tepat</li>
+              </ul>
+            </div>
+            <div class="edu-box" style="border-left-color:var(--gold)">
+              <h4>💡 Mengapa UMKM Perlu Neraca?</h4>
+              <p>Banyak UMKM gagal bukan karena kurang laku, tapi karena tidak tahu kondisi keuangannya. Neraca membantu Anda melihat:</p>
+              <ul style="margin-top:.5rem">
+                <li>Berapa total <strong>harta</strong> yang dimiliki usaha</li>
+                <li>Berapa <strong>utang</strong> yang harus dibayar</li>
+                <li>Berapa <strong>modal bersih</strong> usaha Anda</li>
+                <li>Apakah usaha Anda <strong>sehat secara finansial</strong></li>
+              </ul>
+            </div>
+          </div>
+          <div class="formula-box">
+            <div style="font-size:.85rem;opacity:.8;margin-bottom:.35rem">Persamaan Dasar Akuntansi</div>
+            <div class="formula">HARTA = UTANG + MODAL</div>
+            <div style="font-size:.82rem;opacity:.72;margin-top:.35rem">Assets = Liabilities + Equity</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.5rem">
+            <div style="background:#fff;border-radius:var(--rlg);padding:1.3rem;border:1px solid var(--border);text-align:center">
+              <div style="font-size:2rem;margin-bottom:.5rem">🏦</div>
+              <h4 style="font-size:.9rem;margin-bottom:.4rem">HARTA (Aset)</h4>
+              <p style="font-size:.8rem;color:var(--muted)">Semua yang <strong>dimiliki</strong> usaha: uang tunai, stok produk, peralatan, bangunan</p>
+            </div>
+            <div style="background:#fff;border-radius:var(--rlg);padding:1.3rem;border:1px solid var(--border);text-align:center">
+              <div style="font-size:2rem;margin-bottom:.5rem">💳</div>
+              <h4 style="font-size:.9rem;margin-bottom:.4rem">UTANG (Kewajiban)</h4>
+              <p style="font-size:.8rem;color:var(--muted)">Semua yang <strong>wajib dibayar</strong>: utang supplier, pinjaman bank, utang gaji</p>
+            </div>
+            <div style="background:#fff;border-radius:var(--rlg);padding:1.3rem;border:1px solid var(--border);text-align:center">
+              <div style="font-size:2rem;margin-bottom:.5rem">💎</div>
+              <h4 style="font-size:.9rem;margin-bottom:.4rem">MODAL (Ekuitas)</h4>
+              <p style="font-size:.8rem;color:var(--muted)">Harta dikurangi utang = modal bersih yang <strong>benar-benar milik Anda</strong></p>
+            </div>
+          </div>
+          <div class="edu-box" style="margin-top:1.5rem;border-left-color:var(--success)">
+            <h4>📌 Istilah Penting yang Wajib Diketahui UMKM</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem .875rem;margin-top:.5rem">
+              <div><strong style="color:var(--emerald);font-size:.85rem">Piutang</strong><p style="font-size:.82rem;color:var(--muted)">Uang yang masih harus diterima dari pembeli</p></div>
+              <div><strong style="color:var(--emerald);font-size:.85rem">Persediaan</strong><p style="font-size:.82rem;color:var(--muted)">Stok produk yang belum terjual</p></div>
+              <div><strong style="color:var(--emerald);font-size:.85rem">Aset Tetap</strong><p style="font-size:.82rem;color:var(--muted)">Peralatan, mesin, kendaraan usaha</p></div>
+              <div><strong style="color:var(--emerald);font-size:.85rem">Penyusutan</strong><p style="font-size:.82rem;color:var(--muted)">Penurunan nilai aset seiring waktu</p></div>
+              <div><strong style="color:var(--emerald);font-size:.85rem">HPP</strong><p style="font-size:.82rem;color:var(--muted)">Harga Pokok Penjualan = biaya membuat/beli produk</p></div>
+              <div><strong style="color:var(--emerald);font-size:.85rem">Laba Kotor</strong><p style="font-size:.82rem;color:var(--muted)">Penjualan dikurangi HPP (sebelum biaya operasional)</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: NERACA -->
+        <div id="edu-neraca" class="edu-content">
+          <div class="edu-box" style="margin-bottom:1.4rem">
+            <h4>⚖️ Apa itu Neraca (Balance Sheet)?</h4>
+            <p>Neraca adalah laporan keuangan yang menunjukkan <strong>posisi keuangan usaha pada tanggal tertentu</strong>. Neraca terdiri dari dua sisi yang selalu harus <strong>seimbang (balance)</strong>: sisi Harta dan sisi Utang+Modal.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+            <div>
+              <div style="background:var(--forest);color:#fff;padding:.75rem 1rem;border-radius:var(--r) var(--r) 0 0;font-weight:700;font-size:.88rem">HARTA (AKTIVA)</div>
+              <table class="neraca-table" style="border:1px solid var(--border)">
+                <thead><tr><th>Keterangan</th><th style="text-align:right">Jumlah (Rp)</th></tr></thead>
+                <tbody>
+                  <tr><td colspan="2" style="background:var(--parch);font-weight:600;font-size:.8rem;padding:.5rem 1rem">HARTA LANCAR</td></tr>
+                  <tr><td>Kas & Uang Tunai</td><td style="text-align:right">1.500.000</td></tr>
+                  <tr><td>Tabungan Bank</td><td style="text-align:right">3.200.000</td></tr>
+                  <tr><td>Piutang Pembeli</td><td style="text-align:right">500.000</td></tr>
+                  <tr><td>Persediaan Produk</td><td style="text-align:right">2.000.000</td></tr>
+                  <tr class="subtotal"><td>Jumlah Harta Lancar</td><td style="text-align:right">7.200.000</td></tr>
+                  <tr><td colspan="2" style="background:var(--parch);font-weight:600;font-size:.8rem;padding:.5rem 1rem">HARTA TETAP</td></tr>
+                  <tr><td>Peralatan Produksi</td><td style="text-align:right">5.000.000</td></tr>
+                  <tr><td>Penyusutan Peralatan</td><td style="text-align:right;color:var(--danger)">(500.000)</td></tr>
+                  <tr><td>Gerobak / Kendaraan</td><td style="text-align:right">3.000.000</td></tr>
+                  <tr class="subtotal"><td>Jumlah Harta Tetap</td><td style="text-align:right">7.500.000</td></tr>
+                  <tr class="total-row"><td>TOTAL HARTA</td><td style="text-align:right">14.700.000</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <div style="background:var(--gov-dark);color:#fff;padding:.75rem 1rem;border-radius:var(--r) var(--r) 0 0;font-weight:700;font-size:.88rem">UTANG & MODAL (PASIVA)</div>
+              <table class="neraca-table" style="border:1px solid var(--border)">
+                <thead><tr><th>Keterangan</th><th style="text-align:right">Jumlah (Rp)</th></tr></thead>
+                <tbody>
+                  <tr><td colspan="2" style="background:var(--parch);font-weight:600;font-size:.8rem;padding:.5rem 1rem">UTANG LANCAR</td></tr>
+                  <tr><td>Utang ke Supplier</td><td style="text-align:right">800.000</td></tr>
+                  <tr><td>Utang Operasional</td><td style="text-align:right">200.000</td></tr>
+                  <tr class="subtotal"><td>Jumlah Utang Lancar</td><td style="text-align:right">1.000.000</td></tr>
+                  <tr><td colspan="2" style="background:var(--parch);font-weight:600;font-size:.8rem;padding:.5rem 1rem">UTANG JANGKA PANJANG</td></tr>
+                  <tr><td>Pinjaman Bank / KUR</td><td style="text-align:right">3.000.000</td></tr>
+                  <tr class="subtotal"><td>Jumlah Utang J. Panjang</td><td style="text-align:right">3.000.000</td></tr>
+                  <tr><td colspan="2" style="background:var(--parch);font-weight:600;font-size:.8rem;padding:.5rem 1rem">MODAL PEMILIK</td></tr>
+                  <tr><td>Modal Awal</td><td style="text-align:right">8.500.000</td></tr>
+                  <tr><td>Laba Ditahan</td><td style="text-align:right">2.200.000</td></tr>
+                  <tr class="subtotal"><td>Jumlah Modal</td><td style="text-align:right">10.700.000</td></tr>
+                  <tr class="total-row"><td>TOTAL UTANG + MODAL</td><td style="text-align:right">14.700.000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="formula-box">
+            <div style="font-size:.82rem;opacity:.75;margin-bottom:.35rem">✅ Neraca sudah BALANCE (seimbang)!</div>
+            <div class="formula">Rp14.700.000 = Rp4.000.000 + Rp10.700.000</div>
+            <div style="font-size:.8rem;opacity:.7;margin-top:.35rem">Total Harta = Total Utang + Total Modal</div>
+          </div>
+          <div class="edu-box" style="margin-top:1.4rem;border-left-color:var(--warn)">
+            <h4>⚠️ Tanda Neraca Tidak Sehat</h4>
+            <ul>
+              <li>Utang lebih besar dari modal (over-leverage)</li>
+              <li>Kas sangat sedikit tapi utang lancar besar (tidak likuid)</li>
+              <li>Terus merugi sehingga modal terus berkurang</li>
+              <li>Piutang sangat besar tapi tidak bisa ditagih</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TAB: LABA RUGI -->
+        <div id="edu-labarugi" class="edu-content">
+          <div class="edu-box" style="margin-bottom:1.4rem">
+            <h4>📈 Laporan Laba Rugi (Income Statement)</h4>
+            <p>Laporan ini menunjukkan <strong>berapa keuntungan atau kerugian</strong> usaha selama periode tertentu (bulan/tahun). Berbeda dengan neraca yang melihat posisi di satu titik waktu, laporan laba rugi melihat <strong>pergerakan keuangan selama satu periode</strong>.</p>
+          </div>
+          <div style="max-width:580px;margin:0 auto">
+            <div style="background:var(--forest);color:#fff;padding:.75rem 1.25rem;border-radius:var(--r) var(--r) 0 0;font-weight:700;text-align:center">LAPORAN LABA RUGI UMKM — Maret 2025</div>
+            <table class="neraca-table" style="border:1px solid var(--border)">
+              <tbody>
+                <tr><td colspan="2" style="background:var(--parch);font-weight:700;font-size:.85rem;padding:.6rem 1rem">PENDAPATAN</td></tr>
+                <tr><td>Penjualan Produk</td><td style="text-align:right">Rp4.500.000</td></tr>
+                <tr><td>Pendapatan Lain-lain</td><td style="text-align:right">Rp150.000</td></tr>
+                <tr class="subtotal"><td><strong>Total Pendapatan</strong></td><td style="text-align:right"><strong>Rp4.650.000</strong></td></tr>
+                <tr><td colspan="2" style="background:var(--parch);font-weight:700;font-size:.85rem;padding:.6rem 1rem">HARGA POKOK PENJUALAN (HPP)</td></tr>
+                <tr><td>Bahan Baku</td><td style="text-align:right;color:var(--danger)">Rp1.800.000</td></tr>
+                <tr><td>Biaya Produksi</td><td style="text-align:right;color:var(--danger)">Rp400.000</td></tr>
+                <tr class="subtotal"><td>Total HPP</td><td style="text-align:right;color:var(--danger)">Rp2.200.000</td></tr>
+                <tr class="total-row" style=""><td><strong>LABA KOTOR</strong></td><td style="text-align:right"><strong>Rp2.450.000</strong></td></tr>
+                <tr><td colspan="2" style="background:var(--parch);font-weight:700;font-size:.85rem;padding:.6rem 1rem">BIAYA OPERASIONAL</td></tr>
+                <tr><td>Listrik & Air</td><td style="text-align:right;color:var(--danger)">Rp200.000</td></tr>
+                <tr><td>Transportasi</td><td style="text-align:right;color:var(--danger)">Rp150.000</td></tr>
+                <tr><td>Kemasan & Packing</td><td style="text-align:right;color:var(--danger)">Rp300.000</td></tr>
+                <tr><td>Biaya Pemasaran</td><td style="text-align:right;color:var(--danger)">Rp50.000</td></tr>
+                <tr class="subtotal"><td>Total Biaya Operasional</td><td style="text-align:right;color:var(--danger)">Rp700.000</td></tr>
+                <tr style="background:linear-gradient(135deg,#e8f5ee,#d4eddc)"><td><strong style="font-size:1rem;color:var(--emerald)">✅ LABA BERSIH</strong></td><td style="text-align:right"><strong style="font-size:1rem;color:var(--emerald)">Rp1.750.000</strong></td></tr>
+              </tbody>
+            </table>
+            <div style="background:#fef9c3;border:1px solid #fde68a;border-radius:0 0 var(--r) var(--r);padding:.75rem 1.25rem;font-size:.82rem;color:#713f12">
+              📌 <strong>Margin Laba Bersih:</strong> Rp1.750.000 ÷ Rp4.650.000 × 100% = <strong>37,6%</strong> — Artinya dari setiap Rp100 penjualan, Anda menghasilkan keuntungan bersih Rp37,6
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1.5rem">
+            <div class="edu-box"><h4>🎯 Cara Meningkatkan Laba</h4><ul><li>Naikkan harga jual secara bertahap</li><li>Kurangi biaya bahan baku (negosiasi supplier)</li><li>Efisiensi biaya operasional</li><li>Tambah volume penjualan</li><li>Diversifikasi produk bernilai lebih tinggi</li></ul></div>
+            <div class="edu-box" style="border-left-color:var(--danger)"><h4>🚨 Awas! Tanda Usaha Bermasalah</h4><ul><li>Laba kotor dibawah 20% dari penjualan</li><li>Biaya operasional lebih dari 50% laba kotor</li><li>Rugi lebih dari 2 bulan berturut-turut</li><li>Arus kas negatif meski laporan untung</li></ul></div>
+          </div>
+        </div>
+
+        <!-- TAB: ARUS KAS -->
+        <div id="edu-arus" class="edu-content">
+          <div class="edu-box" style="margin-bottom:1.4rem">
+            <h4>💸 Laporan Arus Kas (Cash Flow)</h4>
+            <p>Arus kas mencatat <strong>uang yang benar-benar masuk dan keluar</strong> dari usaha Anda. Berbeda dari laba rugi, arus kas tidak memasukkan piutang yang belum dibayar. Prinsipnya: <strong>"Untung di kertas bukan berarti ada uang di tangan."</strong></p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem">
+            <div style="background:#fff;border-radius:var(--rlg);padding:1.25rem;border:2px solid var(--emerald)">
+              <div style="font-size:1.5rem;margin-bottom:.5rem">🔄</div>
+              <h4 style="font-size:.9rem;margin-bottom:.4rem;color:var(--emerald)">Arus Kas Operasi</h4>
+              <p style="font-size:.8rem;color:var(--muted)">Uang dari kegiatan jualan sehari-hari: penerimaan pembeli, bayar bahan, gaji karyawan</p>
+              <div style="margin-top:.75rem;font-size:.82rem;font-weight:700;color:var(--emerald)">Contoh: +Rp3.200.000</div>
+            </div>
+            <div style="background:#fff;border-radius:var(--rlg);padding:1.25rem;border:2px solid var(--gov-mid)">
+              <div style="font-size:1.5rem;margin-bottom:.5rem">🏭</div>
+              <h4 style="font-size:.9rem;margin-bottom:.4rem;color:var(--gov-mid)">Arus Kas Investasi</h4>
+              <p style="font-size:.8rem;color:var(--muted)">Uang untuk beli/jual aset usaha: beli gerobak baru, beli mesin, jual peralatan lama</p>
+              <div style="margin-top:.75rem;font-size:.82rem;font-weight:700;color:var(--danger)">Contoh: -Rp1.500.000</div>
+            </div>
+            <div style="background:#fff;border-radius:var(--rlg);padding:1.25rem;border:2px solid var(--gold)">
+              <div style="font-size:1.5rem;margin-bottom:.5rem">🏦</div>
+              <h4 style="font-size:.9rem;margin-bottom:.4rem;color:var(--warn)">Arus Kas Pendanaan</h4>
+              <p style="font-size:.8rem;color:var(--muted)">Uang dari pinjaman atau modal: pinjam bank, setor modal tambahan, cicil pinjaman</p>
+              <div style="margin-top:.75rem;font-size:.82rem;font-weight:700;color:var(--success)">Contoh: +Rp500.000</div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:var(--rlg);border:1px solid var(--border);overflow:hidden;max-width:500px">
+            <div style="background:var(--forest);color:#fff;padding:.75rem 1.25rem;font-weight:700;font-size:.88rem">Ringkasan Arus Kas — Maret 2025</div>
+            <table class="neraca-table">
+              <tbody>
+                <tr><td>Kas Awal Bulan</td><td style="text-align:right">Rp1.200.000</td></tr>
+                <tr><td>+ Arus Kas Operasi</td><td style="text-align:right;color:var(--success)">+Rp3.200.000</td></tr>
+                <tr><td>+ Arus Kas Investasi</td><td style="text-align:right;color:var(--danger)">-Rp1.500.000</td></tr>
+                <tr><td>+ Arus Kas Pendanaan</td><td style="text-align:right;color:var(--success)">+Rp500.000</td></tr>
+                <tr class="total-row"><td><strong>Kas Akhir Bulan</strong></td><td style="text-align:right"><strong>Rp3.400.000</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB: LATIHAN INTERAKTIF -->
+        <div id="edu-latihan" class="edu-content">
+          <div class="edu-box" style="margin-bottom:1.4rem">
+            <h4>🧮 Latihan Neraca Interaktif UMKM</h4>
+            <p>Isi data usaha Anda di bawah, sistem akan menghitung neraca otomatis dan mengevaluasi kesehatan keuangan usaha Anda.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+            <div>
+              <div style="font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--emerald);color:var(--emerald)">🏦 DATA HARTA USAHA</div>
+              <div class="interactive-neraca">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Kas & Uang Tunai (Rp)</span><input type="number" id="ni-kas" value="1500000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Tabungan Bank (Rp)</span><input type="number" id="ni-bank" value="3200000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Piutang Pembeli (Rp)</span><input type="number" id="ni-piutang" value="500000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Stok/Persediaan (Rp)</span><input type="number" id="ni-stok" value="2000000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Peralatan & Mesin (Rp)</span><input type="number" id="ni-alat" value="5000000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Kendaraan (Rp)</span><input type="number" id="ni-kend" value="3000000" oninput="calcNeraca()"></div>
+                <hr style="border:none;border-top:2px dashed var(--border);margin:.75rem 0">
+                <div style="display:flex;justify-content:space-between;font-size:.9rem;font-weight:700;padding:.5rem;background:#e8f5ee;border-radius:var(--r)"><span>TOTAL HARTA</span><span id="ni-tot-harta" style="color:var(--emerald)">Rp0</span></div>
+              </div>
+              <div style="margin-top:1.5rem;font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--danger);color:var(--danger)">💳 DATA UTANG</div>
+              <div class="interactive-neraca">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Utang ke Supplier (Rp)</span><input type="number" id="ni-usup" value="800000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Pinjaman Bank/KUR (Rp)</span><input type="number" id="ni-ubank" value="3000000" oninput="calcNeraca()"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.87rem"><span>Utang Lain-lain (Rp)</span><input type="number" id="ni-ulain" value="200000" oninput="calcNeraca()"></div>
+                <hr style="border:none;border-top:2px dashed var(--border);margin:.75rem 0">
+                <div style="display:flex;justify-content:space-between;font-size:.9rem;font-weight:700;padding:.5rem;background:#fee2e2;border-radius:var(--r)"><span>TOTAL UTANG</span><span id="ni-tot-utang" style="color:var(--danger)">Rp0</span></div>
+              </div>
+            </div>
+            <div>
+              <div style="font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--gov-mid);color:var(--gov-mid)">📊 HASIL ANALISIS NERACA</div>
+              <div id="neraca-result" style="display:flex;flex-direction:column;gap:1rem">
+                <div style="background:#f3f4f6;border-radius:var(--rlg);padding:1.25rem;text-align:center;color:var(--muted);font-size:.875rem">Isi data harta & utang untuk melihat hasil analisis neraca usaha Anda</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- end edu -->
+
+    </main>
+  </div><!-- end dash-wrap -->
+</div><!-- end page-dash -->
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: DASHBOARD PEMERINTAH
+══════════════════════════════════════════════ -->
+<div class="page" id="page-gdash">
+  <div style="background:var(--gov-dark);padding:.65rem 0;border-bottom:1px solid rgba(37,99,235,.3)">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;gap:.45rem;flex-wrap:wrap">
+        <span style="display:inline-block;padding:.25rem .8rem;background:rgba(37,99,235,.2);color:#93c5fd;border:1px solid rgba(37,99,235,.3);border-radius:20px;font-size:.7rem;font-weight:600">🏛️ Bapperida</span>
+        <span style="display:inline-block;padding:.25rem .8rem;background:rgba(37,99,235,.2);color:#93c5fd;border:1px solid rgba(37,99,235,.3);border-radius:20px;font-size:.7rem;font-weight:600">🏢 Diskopukmperindag</span>
+        <span style="display:inline-block;padding:.25rem .8rem;background:rgba(37,99,235,.2);color:#93c5fd;border:1px solid rgba(37,99,235,.3);border-radius:20px;font-size:.7rem;font-weight:600">💻 Dinkominfo</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <div style="background:rgba(37,99,235,.2);color:#93c5fd;border:1px solid rgba(37,99,235,.3);padding:.25rem .85rem;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.5px">🔴 LIVE</div>
+        <button onclick="go('home')" class="btn btn-sm" style="background:rgba(255,255,255,.08);color:#93c5fd;border:1px solid rgba(37,99,235,.3)">← Keluar</button>
+      </div>
+    </div>
+  </div>
+  <div class="dash-wrap">
+    <aside class="sidebar gov-side">
+      <div class="sb-section">Monitoring</div>
+      <ul class="sb-nav">
+        <li><button onclick="gTab('gov')" id="gsbt-gov" class="on"><span class="sb-ico">📊</span>Ringkasan Ekonomi</button></li>
+        <li><button onclick="gTab('prodmon')" id="gsbt-prodmon"><span class="sb-ico">🔍</span>Pantau Produk</button></li>
+        <li><button onclick="gTab('umkmtrack')" id="gsbt-umkmtrack"><span class="sb-ico">📈</span>Perkembangan UMKM</button></li>
+        <li><button onclick="gTab('laporan')" id="gsbt-laporan"><span class="sb-ico">📋</span>Laporan Periodik</button></li>
+      </ul>
+      <div class="sb-section">Verifikasi</div>
+      <ul class="sb-nav">
+        <li><button onclick="gTab('verif')" id="gsbt-verif"><span class="sb-ico">✅</span>Verifikasi Produk <span id="verif-badge" style="background:var(--danger);color:#fff;border-radius:20px;padding:1px 7px;font-size:.65rem;margin-left:auto">0</span></button></li>
+      </ul>
+      <div class="sb-section">Akses</div>
+      <ul class="sb-nav">
+        <li><button onclick="go('market')"><span class="sb-ico">🛒</span>Lihat Marketplace</button></li>
+        <li><button onclick="go('lgov')"><span class="sb-ico">🔐</span>Ganti Akun</button></li>
+      </ul>
+      <div class="sb-user" style="margin-top:auto">
+        <div style="font-size:1.4rem;margin-bottom:.35rem">🏛️</div>
+        <div class="su-name">Admin Pemkot</div>
+        <div class="su-role">Bapperida Mojokerto</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+
+      <!-- RINGKASAN EKONOMI -->
+      <div id="gt-gov">
+        <div class="welcome-bar gov-welcome">
+          <div><h2>Dashboard Ekonomi UMKM 🏛️</h2><p>Kota Mojokerto · Update: 6 Maret 2025, 08:00 WIB</p></div>
+          <div style="text-align:right"><div style="font-size:1.75rem">📊</div><div style="font-size:.72rem;opacity:.7;margin-top:.2rem">Real-time Data</div></div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box gov"><div class="s-ico">🏪</div><div class="s-val">29.247</div><div class="s-lbl">Total UMKM</div><div class="s-trend" style="color:var(--success)">↑ 312 baru bulan ini</div></div>
+          <div class="stat-box gov"><div class="s-ico">✅</div><div class="s-val">24.180</div><div class="s-lbl">UMKM Aktif</div><div class="s-trend" style="color:var(--success)">↑ 82,6% tingkat aktif</div></div>
+          <div class="stat-box gov"><div class="s-ico">📦</div><div class="s-val" id="gov-totprod">0</div><div class="s-lbl">Total Produk Terdaftar</div><div class="s-trend" style="color:var(--warn)" id="gov-pendprod">⏳ 0 menunggu verifikasi</div></div>
+          <div class="stat-box gov"><div class="s-ico">💰</div><div class="s-val">Rp4,2M</div><div class="s-lbl">Est. Omzet Bulanan</div><div class="s-trend" style="color:var(--success)">↑ 8% dari bulan lalu</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+          <div class="card"><div class="card-head">🥧 Sebaran Sektor Usaha</div><div class="card-body"><canvas id="gov-sektor" height="210"></canvas></div></div>
+          <div class="card"><div class="card-head">📈 Pertumbuhan UMKM 2020–2025</div><div class="card-body"><canvas id="gov-growth" height="210"></canvas></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+          <div class="card">
+            <div class="card-head">🗺️ UMKM per Kecamatan</div>
+            <div class="card-body">
+              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.875rem;font-size:.875rem"><div style="width:110px;flex-shrink:0;font-weight:600">Kranggan</div><div style="flex:1;background:#f3f4f6;border-radius:20px;height:11px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--emerald),var(--mint));border-radius:20px;width:88%"></div></div><div style="width:65px;text-align:right;font-weight:700;color:var(--emerald)">12.847</div></div>
+              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.875rem;font-size:.875rem"><div style="width:110px;flex-shrink:0;font-weight:600">Magersari</div><div style="flex:1;background:#f3f4f6;border-radius:20px;height:11px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--gov-blue),#60a5fa);border-radius:20px;width:65%"></div></div><div style="width:65px;text-align:right;font-weight:700;color:var(--gov-mid)">9.523</div></div>
+              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.875rem;font-size:.875rem"><div style="width:110px;flex-shrink:0;font-weight:600">Prajuritkulon</div><div style="flex:1;background:#f3f4f6;border-radius:20px;height:11px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:20px;width:46%"></div></div><div style="width:65px;text-align:right;font-weight:700;color:#7c3aed">6.877</div></div>
+              <div style="margin-top:1.25rem"><canvas id="gov-kec" height="110"></canvas></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head">💹 Tren Transaksi Harian</div>
+            <div class="card-body">
+              <canvas id="gov-tx" height="170"></canvas>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.875rem">
+                <div style="background:#f0faf4;border-radius:10px;padding:.7rem;text-align:center"><div style="font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--emerald)">847</div><div style="font-size:.72rem;color:var(--muted)">Transaksi Hari Ini</div></div>
+                <div style="background:#fef9c3;border-radius:10px;padding:.7rem;text-align:center"><div style="font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#713f12">Rp42Jt</div><div style="font-size:.72rem;color:var(--muted)">Nilai Transaksi</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANTAU PRODUK -->
+      <div id="gt-prodmon" style="display:none">
+        <div style="margin-bottom:1.75rem">
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">🔍 Pantau Perkembangan Produk</h1>
+          <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Monitor semua produk UMKM yang terdaftar di platform</p>
+        </div>
+        <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+          <div class="stat-box gov"><div class="s-ico">📦</div><div class="s-val" id="pm-total">0</div><div class="s-lbl">Total Produk</div></div>
+          <div class="stat-box"><div class="s-ico">✅</div><div class="s-val" id="pm-approved">0</div><div class="s-lbl">Disetujui</div></div>
+          <div class="stat-box"><div class="s-ico">⏳</div><div class="s-val" id="pm-pending">0</div><div class="s-lbl">Menunggu Verifikasi</div></div>
+          <div class="stat-box"><div class="s-ico">❌</div><div class="s-val" id="pm-rejected">0</div><div class="s-lbl">Ditolak</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            📋 Daftar Seluruh Produk UMKM
+            <div style="display:flex;gap:.5rem;align-items:center">
+              <input type="text" id="pm-q" placeholder="Cari produk/UMKM..." style="border:1px solid var(--border);border-radius:var(--r);padding:.38rem .75rem;font-size:.82rem;font-family:inherit;outline:none;width:200px">
+              <select id="pm-filter" style="border:1px solid var(--border);border-radius:var(--r);padding:.38rem .65rem;font-size:.82rem;font-family:inherit;outline:none;cursor:pointer" onchange="renderProdMon()">
+                <option value="all">Semua Status</option>
+                <option value="approved">Disetujui</option>
+                <option value="pending">Pending</option>
+                <option value="rejected">Ditolak</option>
+              </select>
+            </div>
+          </div>
+          <div id="pm-list" style="padding:.5rem"></div>
+        </div>
+      </div>
+
+      <!-- PERKEMBANGAN UMKM -->
+      <div id="gt-umkmtrack" style="display:none">
+        <div style="margin-bottom:1.75rem">
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">📈 Perkembangan UMKM</h1>
+          <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Analisis tren pertumbuhan dan kondisi UMKM Kota Mojokerto</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+          <div class="card"><div class="card-head">📊 Distribusi per Kategori</div><div class="card-body"><canvas id="trk-kat" height="200"></canvas></div></div>
+          <div class="card"><div class="card-head">📅 Pendaftaran UMKM Baru per Bulan</div><div class="card-body"><canvas id="trk-reg" height="200"></canvas></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem">
+          <div class="kip-card"><div class="kip-inner"><div style="font-size:1.4rem;margin-bottom:.4rem">🏆</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-lt)">Kuliner</div><div style="font-size:.78rem;opacity:.7;margin-top:.2rem">Sektor paling dominan (45%)</div></div></div>
+          <div class="kip-card"><div class="kip-inner"><div style="font-size:1.4rem;margin-bottom:.4rem">📍</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-lt)">Kranggan</div><div style="font-size:.78rem;opacity:.7;margin-top:.2rem">Kecamatan UMKM terbanyak (12.847)</div></div></div>
+          <div class="kip-card"><div class="kip-inner"><div style="font-size:1.4rem;margin-bottom:.4rem">🚀</div><div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-lt)">+62,4%</div><div style="font-size:.78rem;opacity:.7;margin-top:.2rem">Pertumbuhan UMKM 5 tahun terakhir</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-head">🏪 Top 10 UMKM Paling Aktif</div>
+          <div class="tbl-wrap">
+            <table class="gov-table">
+              <thead><tr><th>#</th><th>Nama UMKM</th><th>Kategori</th><th>Kecamatan</th><th>Produk</th><th>Views Total</th><th>Status</th></tr></thead>
+              <tbody id="top-umkm-tbl"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VERIFIKASI PRODUK -->
+      <div id="gt-verif" style="display:none">
+        <div style="margin-bottom:1.75rem">
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">✅ Verifikasi Produk</h1>
+          <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Tinjau dan setujui produk baru dari UMKM sebelum tampil di marketplace</p>
+        </div>
+        <div id="verif-alert"></div>
+        <div id="verif-list"></div>
+        <div id="verif-empty" style="text-align:center;padding:4rem;color:var(--muted)">
+          <div style="font-size:3rem;margin-bottom:.875rem">✅</div>
+          <h3 style="margin-bottom:.4rem">Tidak ada produk yang perlu diverifikasi</h3>
+          <p>Semua produk sudah ditinjau</p>
+        </div>
+      </div>
+
+      <!-- LAPORAN -->
+      <div id="gt-laporan" style="display:none">
+        <div style="margin-bottom:1.75rem">
+          <h1 style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700">📋 Laporan Periodik</h1>
+          <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Laporan kondisi UMKM Kota Mojokerto per periode</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+          <div class="card">
+            <div class="card-head">📅 Laporan Tersedia</div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem;background:var(--parch);border-radius:var(--r);border:1px solid var(--border)">
+                <div><div style="font-weight:700;font-size:.9rem">Laporan Bulanan — Februari 2025</div><div style="font-size:.78rem;color:var(--muted);margin-top:2px">312 UMKM baru · 4.521 produk · Omzet Rp3,8M</div></div>
+                <button class="btn btn-sm btn-gov" onclick="alert('Download laporan PDF...')">📥 Unduh</button>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem;background:var(--parch);border-radius:var(--r);border:1px solid var(--border)">
+                <div><div style="font-weight:700;font-size:.9rem">Laporan Bulanan — Januari 2025</div><div style="font-size:.78rem;color:var(--muted);margin-top:2px">285 UMKM baru · 4.210 produk · Omzet Rp3,5M</div></div>
+                <button class="btn btn-sm btn-gov" onclick="alert('Download laporan PDF...')">📥 Unduh</button>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem;background:var(--parch);border-radius:var(--r);border:1px solid var(--border)">
+                <div><div style="font-weight:700;font-size:.9rem">Laporan Tahunan — 2024</div><div style="font-size:.78rem;color:var(--muted);margin-top:2px">Analisis lengkap perkembangan UMKM 2024</div></div>
+                <button class="btn btn-sm btn-gov" onclick="alert('Download laporan PDF...')">📥 Unduh</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head">📊 Ringkasan Q1 2025</div>
+            <div class="card-body">
+              <canvas id="lap-q1" height="200"></canvas>
+              <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem;font-size:.85rem">
+                <div style="display:flex;justify-content:space-between;padding:.5rem .75rem;background:#f0faf4;border-radius:8px"><span>UMKM Baru Q1</span><strong style="color:var(--success)">897 UMKM</strong></div>
+                <div style="display:flex;justify-content:space-between;padding:.5rem .75rem;background:#dbeafe;border-radius:8px"><span>Produk Baru Q1</span><strong style="color:var(--gov-mid)">1.240 produk</strong></div>
+                <div style="display:flex;justify-content:space-between;padding:.5rem .75rem;background:#fef9c3;border-radius:8px"><span>Total Est. Omzet Q1</span><strong style="color:#713f12">Rp11,5 Miliar</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal-box">
+    <div style="font-size:4rem;margin-bottom:1rem">🎉</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;margin-bottom:.7rem">Produk Dikirim!</h2>
+    <p style="color:var(--muted);margin-bottom:1.5rem;line-height:1.65">Produk Anda telah dikirim ke Diskopukmperindag untuk diverifikasi. Proses 1-2 hari kerja.</p>
+    <div class="timeline" style="text-align:left;margin-bottom:1.5rem">
+      <div class="tl-item"><div class="tl-dot ok"></div><div class="tl-text">Produk diterima sistem ✅</div><div class="tl-sub">Baru saja</div></div>
+      <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text">Menunggu review Dinas</div><div class="tl-sub">1-2 hari kerja</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#e5e7eb"></div><div class="tl-text" style="color:var(--muted)">Tampil di Marketplace</div><div class="tl-sub">Setelah disetujui</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.7rem">
+      <button onclick="go('market');document.getElementById('success-modal').classList.remove('show')" class="btn btn-primary btn-block">🛒 Lihat Marketplace</button>
+      <button onclick="document.getElementById('success-modal').classList.remove('show')" class="btn btn-outline btn-block">➕ Tambah Produk Lagi</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ═══════════════════════════════
+   DATA MASTER
+═══════════════════════════════ */
+const PRODS = [
+  {id:1,name:"Onde Onde Mojokerto",price:15000,cat:"Kuliner",seller:"UMKM Bu Sari",emoji:"🍡",desc:"Onde onde khas Mojokerto dengan isian kacang hijau pilihan dan taburan wijen renyah. Dibuat fresh setiap pagi dari bahan alami tanpa pengawet.",kec:"Kranggan",wa:"6281234567890",views:320,sold:185,rating:4.8,reviews:42,weight:"200gr/bungkus",status:"approved",img:null},
+  {id:2,name:"Batik Mojokerto Klasik",price:120000,cat:"Fashion",seller:"UMKM Batik Kranggan",emoji:"👗",desc:"Batik tulis dengan motif Surya Majapahit khas Mojokerto. Dibuat pengrajin lokal berpengalaman 20+ tahun dengan teknik tradisional.",kec:"Kranggan",wa:"6281234567891",views:210,sold:97,rating:4.9,reviews:28,weight:"250gr",status:"approved",img:null},
+  {id:3,name:"Sambal Pecel Mojokerto",price:25000,cat:"Kuliner",seller:"UMKM Dapur Mak Nem",emoji:"🥣",desc:"Sambal pecel otentik dengan bumbu rempah rahasia turun-temurun. Kacang pilihan, tanpa MSG, tahan 2 minggu. Cocok untuk berbagai masakan.",kec:"Magersari",wa:"6281234567892",views:285,sold:163,rating:4.7,reviews:55,weight:"250gr",status:"approved",img:null},
+  {id:4,name:"Kerajinan Bambu Ukir",price:85000,cat:"Kerajinan",seller:"UMKM Bambu Karya",emoji:"🪵",desc:"Kerajinan bambu ukir motif batik Mojokerto. Dikerjakan tangan, cocok sebagai hiasan dinding atau souvenir premium.",kec:"Prajuritkulon",wa:"6281234567893",views:150,sold:72,rating:4.6,reviews:19,weight:"500gr",status:"approved",img:null},
+  {id:5,name:"Kue Klepon Pandan",price:18000,cat:"Kuliner",seller:"UMKM Jajanan Ibu",emoji:"🟢",desc:"Klepon pandan asli isian gula merah Mojokerto. Dibungkus daun pisang segar, aroma wangi alami. Order minimal 20 pcs.",kec:"Magersari",wa:"6281234567894",views:195,sold:110,rating:4.5,reviews:31,weight:"10pcs/bungkus",status:"approved",img:null},
+  {id:6,name:"Tas Anyam Pandan",price:65000,cat:"Kerajinan",seller:"UMKM Anyaman Putri",emoji:"👜",desc:"Tas anyam daun pandan pilihan. Dikerjakan pengrajin wanita lokal. Kuat, ramah lingkungan, unik sebagai oleh-oleh.",kec:"Kranggan",wa:"6281234567895",views:175,sold:58,rating:4.7,reviews:16,weight:"300gr",status:"approved",img:null},
+  {id:7,name:"Jasa Katering Pernikahan",price:45000,cat:"Jasa",seller:"Catering Bu Dewi",emoji:"🍽️",desc:"Katering pernikahan dan hajatan. Masakan Jawa otentik. Harga per porsi, min 50 porsi. Termasuk peralatan makan.",kec:"Prajuritkulon",wa:"6281234567896",views:130,sold:42,rating:4.8,reviews:12,weight:"per porsi",status:"approved",img:null},
+  {id:8,name:"Kain Tenun Mojokerto",price:200000,cat:"Fashion",seller:"UMKM Tenun Lokal",emoji:"🎨",desc:"Kain tenun ATBM khas Mojokerto motif Surya Majapahit. Pewarna alam, ramah lingkungan. Ukuran 2×1 meter.",kec:"Kranggan",wa:"6281234567897",views:165,sold:45,rating:4.9,reviews:23,weight:"2×1m",status:"approved",img:null},
+];
+
+// Produk yang diupload oleh UMKM (dinamis)
+let userProducts = [];
+let nextId = 100;
+
+// Semua produk = bawaan + user uploads
+function getAllProds() { return [...PRODS, ...userProducts]; }
+
+const CATS = ["Semua","Kuliner","Fashion","Kerajinan","Jasa"];
+let mktCat="Semua", mktKec="semua", mktPrice="all", mktSort="default", mktQ="", mktView="grid";
+
+let txList = [
+  {id:1,tgl:"2025-03-01",ket:"Penjualan Onde Onde (30 pcs)",jml:450000,jenis:"pemasukan"},
+  {id:2,tgl:"2025-03-02",ket:"Beli bahan baku kacang hijau",jml:120000,jenis:"pengeluaran"},
+  {id:3,tgl:"2025-03-03",ket:"Penjualan Onde Onde (25 pcs)",jml:375000,jenis:"pemasukan"},
+  {id:4,tgl:"2025-03-04",ket:"Biaya kemasan & packaging",jml:50000,jenis:"pengeluaran"},
+  {id:5,tgl:"2025-03-05",ket:"Penjualan Onde Onde (40 pcs)",jml:600000,jenis:"pemasukan"},
+  {id:6,tgl:"2025-03-06",ket:"Biaya listrik dapur",jml:80000,jenis:"pengeluaran"},
+];
+let txId = 10;
+
+// Upload buffer
+let uploadedImgs = [];
+
+/* ═══════════════════════════════
+   HELPERS
+═══════════════════════════════ */
+function rp(n){ return "Rp" + Number(n).toLocaleString('id-ID'); }
+function score(p){ return p.views * 0.4 + p.sold * 0.6; }
+function stars(r){ let s=''; for(let i=1;i<=5;i++) s+= i<=Math.floor(r)?'★':'☆'; return s; }
+
+/* ═══════════════════════════════
+   NAVIGATION
+═══════════════════════════════ */
+const pages = ['home','market','prod','trending','login','lgov','dash','gdash'];
+function go(pg){
+  pages.forEach(p => {
+    const el = document.getElementById('page-'+p);
+    if(el) el.classList.remove('active');
+  });
+  document.querySelectorAll('.nav-links button,.nav-links a').forEach(e=>e.classList.remove('active'));
+  const el = document.getElementById('page-'+pg);
+  if(el) el.classList.add('active');
+  const nb = document.getElementById('nb-'+pg);
+  if(nb) nb.classList.add('active');
+  window.scrollTo(0,0);
+  if(pg==='home') initHome();
+  if(pg==='market') initMarket();
+  if(pg==='trending') initTrending();
+  if(pg==='dash'){ initDash(); dTab('ov'); }
+  if(pg==='gdash'){ initGovCharts(); gTab('gov'); updateGovStats(); }
+}
+
+/* ═══════════════════════════════
+   PRODUCT IMAGE RENDER
+═══════════════════════════════ */
+function prodImgHTML(p, size=100){
+  if(p.img){
+    return `<div class="prod-img" style="height:${size}px"><img src="${p.img}" alt="${p.name}"><div class="emoji-fallback" style="display:none">${p.emoji}</div></div>`;
+  }
+  const colors = {Kuliner:'#e8f5ee,#c8e8d4',Fashion:'#ede9fe,#ddd6fe',Kerajinan:'#fef3c7,#fde68a',Jasa:'#dbeafe,#bfdbfe'};
+  const c = colors[p.cat] || '#f3f4f6,#e5e7eb';
+  return `<div class="prod-img" style="height:${size}px;background:linear-gradient(135deg,${c})">${p.emoji}</div>`;
+}
+
+function prodListImgHTML(p){
+  if(p.img){
+    return `<div style="width:80px;height:80px;border-radius:var(--r);overflow:hidden;flex-shrink:0"><img src="${p.img}" style="width:100%;height:100%;object-fit:cover"></div>`;
+  }
+  const colors = {Kuliner:'#e8f5ee,#c8e8d4',Fashion:'#ede9fe,#ddd6fe',Kerajinan:'#fef3c7,#fde68a',Jasa:'#dbeafe,#bfdbfe'};
+  const c = colors[p.cat] || '#f3f4f6,#e5e7eb';
+  return `<div style="width:80px;height:80px;border-radius:var(--r);background:linear-gradient(135deg,${c});display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0">${p.emoji}</div>`;
+}
+
+/* ═══════════════════════════════
+   PRODUCT CARD (GRID)
+═══════════════════════════════ */
+function prodCard(p){
+  const sBadge = p.status==='pending' ? `<span class="prod-badge-status badge-pending">⏳ Review</span>` : p.status==='rejected' ? `<span class="prod-badge-status badge-rejected">❌ Ditolak</span>` : '';
+  return `<div class="prod-card">
+    <div style="position:relative">${prodImgHTML(p,180)}${sBadge}</div>
+    <div class="prod-body">
+      <span class="prod-cat">${p.cat}</span>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-price">${rp(p.price)}</div>
+      <div class="prod-rating"><span class="stars">${stars(p.rating)}</span> <span style="color:var(--ink);font-weight:600">${p.rating}</span><span class="rating-count">(${p.reviews})</span></div>
+      <div class="prod-seller">🏪 ${p.seller} · 📍 ${p.kec}</div>
+      <div class="prod-actions">
+        <button onclick="goProd(${p.id})" class="btn btn-primary btn-sm" style="flex:1">Lihat Detail</button>
+        <a href="https://wa.me/${p.wa}?text=Halo%20${encodeURIComponent(p.seller)}%2C%20tertarik%20produk%20*${encodeURIComponent(p.name)}*" target="_blank" class="btn btn-sm" style="background:#25d366;color:#fff">💬</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function prodListCard(p){
+  return `<div style="background:#fff;border-radius:var(--rlg);border:1px solid var(--border);padding:1rem;display:flex;gap:1rem;align-items:start;transition:all .22s" onmouseover="this.style.boxShadow='var(--shlg)';this.style.borderColor='var(--emerald)'" onmouseout="this.style.boxShadow='';this.style.borderColor='var(--border)'">
+    ${prodListImgHTML(p)}
+    <div style="flex:1">
+      <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:.5rem">
+        <div>
+          <span class="prod-cat">${p.cat}</span>
+          <div style="font-size:1rem;font-weight:700;margin-top:3px">${p.name}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--emerald);margin-top:2px">${rp(p.price)}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="prod-rating" style="justify-content:flex-end"><span class="stars">${stars(p.rating)}</span> <strong>${p.rating}</strong><span class="rating-count">(${p.reviews})</span></div>
+          <div style="font-size:.78rem;color:var(--muted);margin-top:3px">👁️ ${p.views} views · 📦 ${p.sold} terjual</div>
+        </div>
+      </div>
+      <div style="font-size:.82rem;color:var(--muted);margin:.5rem 0;line-height:1.55">${p.desc.substring(0,120)}...</div>
+      <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
+        <span style="font-size:.78rem;color:var(--muted)">🏪 ${p.seller} · 📍 Kec. ${p.kec}</span>
+        <div style="margin-left:auto;display:flex;gap:.5rem">
+          <button onclick="goProd(${p.id})" class="btn btn-primary btn-sm">Lihat Detail</button>
+          <a href="https://wa.me/${p.wa}?text=Halo%20tertarik%20*${encodeURIComponent(p.name)}*" target="_blank" class="btn btn-sm btn-wa">💬 Chat</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══════════════════════════════
+   HOME
+═══════════════════════════════ */
+function initHome(){
+  const el = document.getElementById('home-prods');
+  const approved = getAllProds().filter(p=>p.status==='approved');
+  el.innerHTML = approved.slice(0,4).map(prodCard).join('');
+}
+
+/* ═══════════════════════════════
+   MARKETPLACE
+═══════════════════════════════ */
+function initMarket(){
+  // Category chips
+  const cc = document.getElementById('mkt-cats');
+  cc.innerHTML = '';
+  CATS.forEach(c=>{
+    const d = document.createElement('div');
+    d.className = 'chip' + (c===mktCat?' on':'');
+    d.textContent = c;
+    d.onclick = ()=>{ mktCat=c; cc.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); d.classList.add('on'); renderMarket(); };
+    cc.appendChild(d);
+  });
+
+  // Kec filter
+  document.getElementById('mkt-kec').innerHTML = [['semua','🗺️ Semua'],['Kranggan','📍 Kranggan'],['Magersari','📍 Magersari'],['Prajuritkulon','📍 Prajuritkulon']].map(([k,l])=>`
+    <div onclick="mktKec='${k}';document.querySelectorAll('#mkt-kec div').forEach(x=>{x.style.color='';x.style.fontWeight=''});this.style.color='var(--emerald)';this.style.fontWeight='700';renderMarket()"
+      style="padding:.38rem .5rem;font-size:.83rem;cursor:pointer;border-radius:6px;transition:all .2s;color:${k===mktKec?'var(--emerald)':'var(--muted)'};font-weight:${k===mktKec?'700':'400'}"
+      onmouseover="this.style.background='#f0faf4'" onmouseout="this.style.background=''">${l}</div>`).join('');
+
+  // Price filter
+  document.getElementById('mkt-price').innerHTML = [['all','Semua Harga'],['under25','< Rp25.000'],['25to100','Rp25–100K'],['over100','> Rp100.000']].map(([k,l])=>`
+    <div onclick="mktPrice='${k}';document.querySelectorAll('#mkt-price div').forEach(x=>{x.style.color='';x.style.fontWeight=''});this.style.color='var(--emerald)';this.style.fontWeight='700';renderMarket()"
+      style="padding:.38rem .5rem;font-size:.83rem;cursor:pointer;border-radius:6px;transition:all .2s;color:${k===mktPrice?'var(--emerald)':'var(--muted)'};font-weight:${k===mktPrice?'700':'400'}"
+      onmouseover="this.style.background='#f0faf4'" onmouseout="this.style.background=''">${l}</div>`).join('');
+
+  // Sort
+  document.getElementById('mkt-sort').innerHTML = [['default','⭐ Relevan'],['price-asc','💰 Termurah'],['price-desc','💎 Termahal'],['popular','🔥 Terpopuler'],['rating','⭐ Rating Tertinggi']].map(([k,l])=>`
+    <div onclick="mktSort='${k}';document.querySelectorAll('#mkt-sort div').forEach(x=>{x.style.color='';x.style.fontWeight=''});this.style.color='var(--emerald)';this.style.fontWeight='700';renderMarket()"
+      style="padding:.38rem .5rem;font-size:.83rem;cursor:pointer;border-radius:6px;transition:all .2s;color:${k===mktSort?'var(--emerald)':'var(--muted)'};font-weight:${k===mktSort?'700':'400'}"
+      onmouseover="this.style.background='#f0faf4'" onmouseout="this.style.background=''">${l}</div>`).join('');
+
+  document.getElementById('mkt-q').oninput = e=>{ mktQ=e.target.value.toLowerCase(); renderMarket(); };
+  renderMarket();
+}
+
+function renderMarket(){
+  let list = getAllProds().filter(p=>p.status==='approved');
+  if(mktCat!=='Semua') list = list.filter(p=>p.cat===mktCat);
+  if(mktKec!=='semua') list = list.filter(p=>p.kec===mktKec);
+  if(mktPrice==='under25') list = list.filter(p=>p.price<25000);
+  else if(mktPrice==='25to100') list = list.filter(p=>p.price>=25000&&p.price<=100000);
+  else if(mktPrice==='over100') list = list.filter(p=>p.price>100000);
+  if(mktQ) list = list.filter(p=>p.name.toLowerCase().includes(mktQ)||p.seller.toLowerCase().includes(mktQ)||p.cat.toLowerCase().includes(mktQ)||p.kec.toLowerCase().includes(mktQ));
+  if(mktSort==='price-asc') list.sort((a,b)=>a.price-b.price);
+  else if(mktSort==='price-desc') list.sort((a,b)=>b.price-a.price);
+  else if(mktSort==='popular') list.sort((a,b)=>score(b)-score(a));
+  else if(mktSort==='rating') list.sort((a,b)=>b.rating-a.rating);
+
+  document.getElementById('mkt-count').textContent = list.length;
+  const empty = list.length===0;
+  document.getElementById('mkt-empty').style.display = empty?'block':'none';
+  document.getElementById('mkt-grid').innerHTML = mktView==='grid'&&!empty ? list.map(prodCard).join('') : '';
+  const mktListEl = document.getElementById('mkt-list');
+  mktListEl.innerHTML = mktView==='list'&&!empty ? list.map(prodListCard).join('') : '';
+  mktListEl.style.display = mktView==='list'&&!empty?'flex':'none';
+  document.getElementById('mkt-grid').style.display = mktView==='grid'&&!empty?'grid':'none';
+}
+
+function setView(v){
+  mktView=v;
+  document.getElementById('view-grid').style.background = v==='grid'?'var(--emerald)':'';
+  document.getElementById('view-grid').style.color = v==='grid'?'#fff':'';
+  document.getElementById('view-list').style.background = v==='list'?'var(--emerald)':'';
+  document.getElementById('view-list').style.color = v==='list'?'#fff':'';
+  renderMarket();
+}
+
+/* ═══════════════════════════════
+   PRODUCT DETAIL
+═══════════════════════════════ */
+function goProd(id){
+  const p = getAllProds().find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('bc-name').textContent = p.name;
+  const imgBig = p.img
+    ? `<div style="width:100%;aspect-ratio:1;border-radius:var(--rlg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shlg)"><img src="${p.img}" style="width:100%;height:100%;object-fit:cover"></div>`
+    : `<div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg,#e8f5ee,#c8e8d4);border-radius:var(--rlg);display:flex;align-items:center;justify-content:center;font-size:9rem;border:1px solid var(--border);box-shadow:var(--shlg)">${p.emoji}</div>`;
+  document.getElementById('prod-detail').innerHTML = `
+    <div>${imgBig}</div>
+    <div>
+      <span class="prod-cat" style="margin-bottom:.875rem;display:inline-block">${p.cat}</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;margin-bottom:.4rem;line-height:1.2">${p.name}</h1>
+      <div style="font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--emerald);margin-bottom:.6rem">${rp(p.price)}</div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.4rem">
+        <span class="stars" style="font-size:1rem">${stars(p.rating)}</span>
+        <strong>${p.rating}</strong>
+        <span style="color:var(--muted);font-size:.85rem">(${p.reviews} ulasan)</span>
+        <span style="color:var(--muted);font-size:.85rem">· 📦 ${p.sold} terjual</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.4rem">
+        <div style="display:flex;gap:.75rem;align-items:center"><div style="width:34px;height:34px;background:#f0faf4;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">🏪</div><div><div style="font-size:.75rem;color:var(--muted)">Penjual</div><div style="font-weight:600;font-size:.9rem">${p.seller}</div></div></div>
+        <div style="display:flex;gap:.75rem;align-items:center"><div style="width:34px;height:34px;background:#f0faf4;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">📍</div><div><div style="font-size:.75rem;color:var(--muted)">Lokasi</div><div style="font-weight:600;font-size:.9rem">Kec. ${p.kec}, Kota Mojokerto</div></div></div>
+        <div style="display:flex;gap:.75rem;align-items:center"><div style="width:34px;height:34px;background:#f0faf4;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">⚖️</div><div><div style="font-size:.75rem;color:var(--muted)">Berat/Ukuran</div><div style="font-weight:600;font-size:.9rem">${p.weight||'N/A'}</div></div></div>
+        <div style="display:flex;gap:.75rem;align-items:center"><div style="width:34px;height:34px;background:#f0faf4;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">👁️</div><div><div style="font-size:.75rem;color:var(--muted)">Dilihat</div><div style="font-weight:600;font-size:.9rem">${p.views.toLocaleString('id-ID')} kali</div></div></div>
+      </div>
+      <div style="background:var(--parch);border-radius:var(--r);padding:1.1rem;margin-bottom:1.4rem;font-size:.9rem;line-height:1.7;color:var(--muted);border:1px solid var(--border)"><strong style="display:block;margin-bottom:.4rem;color:var(--ink)">Deskripsi Produk</strong>${p.desc}</div>
+      <div style="display:flex;flex-direction:column;gap:.75rem">
+        <a href="https://wa.me/${p.wa}?text=Halo%20${encodeURIComponent(p.seller)}%2C%20saya%20tertarik%20*${encodeURIComponent(p.name)}*%20seharga%20${encodeURIComponent(rp(p.price))}.%20Apakah%20masih%20tersedia%3F" target="_blank" class="btn btn-wa btn-block btn-lg">💬 Pesan via WhatsApp</a>
+        <button onclick="go('market')" class="btn btn-outline btn-block">← Kembali ke Marketplace</button>
+      </div>
+    </div>`;
+  document.getElementById('prod-related').innerHTML = getAllProds().filter(x=>x.id!==id&&x.status==='approved').slice(0,4).map(prodCard).join('');
+  go('prod');
+}
+
+/* ═══════════════════════════════
+   TRENDING
+═══════════════════════════════ */
+function initTrending(){
+  const sorted = [...getAllProds()].filter(p=>p.status==='approved').sort((a,b)=>score(b)-score(a));
+  const maxS = score(sorted[0]);
+  const rnk = ['🥇','🥈','🥉'];
+  document.getElementById('trend-list').innerHTML = sorted.map((p,i)=>{
+    const s = Math.round(score(p));
+    const pct = Math.round(s/maxS*100);
+    return `<div class="trend-item" onclick="goProd(${p.id})">
+      <div class="rank-b ${i<3?'r'+(i+1):'rn'}">${i<3?rnk[i]:i+1}</div>
+      <div style="width:44px;height:44px;border-radius:10px;${p.img?`background-image:url(${p.img});background-size:cover;background-position:center`:`background:linear-gradient(135deg,#e8f5ee,#d4eddc);display:flex;align-items:center;justify-content:center;font-size:1.5rem`};flex-shrink:0;overflow:hidden">${p.img?'':p.emoji}</div>
+      <div style="flex:1;min-width:0">
+        <strong style="font-size:.93rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</strong>
+        <div style="font-size:.76rem;color:var(--muted);margin-top:2px">🏪 ${p.seller} · 📍 ${p.kec}</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:3px">👁️ ${p.views} views · 📦 ${p.sold} terjual</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--emerald);font-size:.95rem">${rp(p.price)}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--danger)">${s}</div>
+        <div style="font-size:.65rem;color:var(--muted)">skor</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const catSold = {};
+  getAllProds().filter(p=>p.status==='approved').forEach(p=>{ catSold[p.cat]=(catSold[p.cat]||0)+p.sold; });
+  const top = Object.entries(catSold).sort((a,b)=>b[1]-a[1]);
+  const maxV = top[0][1];
+  document.getElementById('trend-cats').innerHTML = top.map(([c,v])=>`
+    <div style="margin-bottom:.85rem">
+      <div style="display:flex;justify-content:space-between;font-size:.84rem;margin-bottom:3px"><span>${c}</span><strong>${v} terjual</strong></div>
+      <div class="bar-bg"><div style="height:100%;background:linear-gradient(90deg,var(--emerald),var(--jade));border-radius:20px;width:${Math.round(v/maxV*100)}%;transition:width 1.2s ease"></div></div>
+    </div>`).join('');
+  document.getElementById('trend-views').textContent = getAllProds().reduce((s,p)=>s+p.views,0).toLocaleString('id-ID');
+  document.getElementById('trend-topcat').textContent = top[0][0]+' 🏆';
+}
+
+/* ═══════════════════════════════
+   LOGIN
+═══════════════════════════════ */
+function doLoginUMKM(){
+  const e=document.getElementById('l-email').value;
+  const p=document.getElementById('l-pw').value;
+  const al=document.getElementById('login-alert');
+  if(!e||!p){al.innerHTML='<div class="alert a-err">⚠️ Isi email dan password.</div>';return}
+  al.innerHTML='<div class="alert a-inf">⏳ Memverifikasi...</div>';
+  setTimeout(()=>{al.innerHTML='<div class="alert a-ok">✅ Login berhasil!</div>';setTimeout(()=>go('dash'),800)},700);
+}
+function doLoginGov(){
+  const e=document.getElementById('lg-email').value;
+  const p=document.getElementById('lg-pw').value;
+  const al=document.getElementById('lgov-alert');
+  if(!e||!p){al.innerHTML='<div class="alert a-err">⚠️ Isi email dan password.</div>';return}
+  al.innerHTML='<div class="alert a-inf">⏳ Memverifikasi akses pemerintah...</div>';
+  setTimeout(()=>{al.innerHTML='<div class="alert a-ok">✅ Login berhasil! Mengarahkan ke dashboard pemerintah...</div>';setTimeout(()=>go('gdash'),900)},800);
+}
+
+/* ═══════════════════════════════
+   DASHBOARD UMKM TABS
+═══════════════════════════════ */
+function dTab(t){
+  ['ov','tp','keu','edu'].forEach(x=>{
+    const el=document.getElementById('dt-'+x); if(el) el.style.display='none';
+    const bt=document.getElementById('sbt-'+x); if(bt) bt.classList.remove('on');
+  });
+  const el=document.getElementById('dt-'+t); if(el) el.style.display='block';
+  const bt=document.getElementById('sbt-'+t); if(bt) bt.classList.add('on');
+  if(t==='keu') renderTx();
+}
+
+function initDash(){
+  const tot = getAllProds().length;
+  const el = document.getElementById('ov-totprod'); if(el) el.textContent=tot;
+  const views = getAllProds().reduce((s,p)=>s+p.views,0);
+  const el2 = document.getElementById('ov-views'); if(el2) el2.textContent=views.toLocaleString('id-ID');
+  const tbl = document.getElementById('ov-prodtbl');
+  if(tbl) tbl.innerHTML = getAllProds().slice(0,6).map(p=>`<tr>
+    <td><strong>${p.emoji} ${p.name}</strong></td>
+    <td>${rp(p.price)}</td>
+    <td>👁️ ${p.views}</td>
+    <td><span class="badge ${p.status==='approved'?'bg':p.status==='pending'?'by':'br'}">${p.status==='approved'?'✅ Aktif':p.status==='pending'?'⏳ Review':'❌ Ditolak'}</span></td>
+  </tr>`).join('');
+  const ps = document.getElementById('ov-prodstatus');
+  const pend = getAllProds().filter(p=>p.status==='pending').length;
+  if(ps&&pend>0) ps.textContent=`(${pend} menunggu verifikasi)`;
+  document.getElementById('k-tgl').value = new Date().toISOString().split('T')[0];
+}
+
+/* ═══════════════════════════════
+   UPLOAD FOTO NYATA
+═══════════════════════════════ */
+function handleUpload(input){
+  if(!input.files.length) return;
+  uploadedImgs = [];
+  const grid = document.getElementById('tp-prev');
+  const status = document.getElementById('upload-status');
+  grid.style.display='grid'; grid.innerHTML='';
+  const files = Array.from(input.files).slice(0,3);
+  status.textContent = `📷 ${files.length} foto dipilih...`;
+  let loaded = 0;
+  files.forEach((f, idx) => {
+    if(f.size > 5*1024*1024){ status.textContent='❌ File terlalu besar (maks 5MB)'; return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedImgs[idx] = e.target.result;
+      const div = document.createElement('div');
+      div.className='preview-thumb';
+      div.innerHTML=`<img src="${e.target.result}"><button class="rm-btn" onclick="removeImg(${idx},this)">✕</button>`;
+      grid.appendChild(div);
+      loaded++;
+      if(loaded===files.length) status.innerHTML=`<span style="color:var(--success);font-weight:600">✅ ${loaded} foto berhasil dimuat — siap diupload!</span>`;
+    };
+    reader.readAsDataURL(f);
+  });
+}
+function removeImg(idx, btn){
+  uploadedImgs[idx]=null;
+  btn.closest('.preview-thumb').remove();
+  const remaining = uploadedImgs.filter(Boolean).length;
+  document.getElementById('upload-status').innerHTML = remaining>0?`<span style="color:var(--success);font-weight:600">✅ ${remaining} foto tersisa</span>`:'';
+}
+
+/* ═══════════════════════════════
+   SUBMIT PRODUK
+═══════════════════════════════ */
+function submitProd(){
+  const nm=document.getElementById('tp-nm').value.trim();
+  const hrg=parseInt(document.getElementById('tp-hrg').value);
+  const kat=document.getElementById('tp-kat').value;
+  const kec=document.getElementById('tp-kec').value;
+  const wa=document.getElementById('tp-wa').value.trim();
+  const desc=document.getElementById('tp-desc').value.trim();
+  const al=document.getElementById('tp-alert');
+  if(!nm||!hrg||!kat||!kec||!wa){ al.innerHTML='<div class="alert a-err">⚠️ Harap isi semua field wajib (*)</div>'; return; }
+  const mainImg = uploadedImgs.find(Boolean) || null;
+  const newProd = {
+    id: nextId++, name:nm, price:hrg, cat:kat, kec, wa, desc: desc||'Produk UMKM Mojokerto.',
+    seller:'UMKM Bu Sari', emoji:'📦',
+    weight: document.getElementById('tp-brt').value||'N/A',
+    views:0, sold:0, rating:4.5, reviews:0, status:'pending', img: mainImg
+  };
+  userProducts.push(newProd);
+  al.innerHTML='';
+  document.getElementById('success-modal').classList.add('show');
+  // Reset form
+  ['tp-nm','tp-hrg','tp-kat','tp-kec','tp-wa','tp-desc','tp-brt'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  uploadedImgs=[]; document.getElementById('tp-prev').innerHTML=''; document.getElementById('tp-prev').style.display='none';
+  document.getElementById('upload-status').textContent='';
+  updateGovStats();
+}
+
+/* ═══════════════════════════════
+   KEUANGAN
+═══════════════════════════════ */
+function addTx(){
+  const tgl=document.getElementById('k-tgl').value;
+  const ket=document.getElementById('k-ket').value.trim();
+  const jml=parseInt(document.getElementById('k-jml').value);
+  const jenis=document.getElementById('k-jenis').value;
+  const al=document.getElementById('keu-alert');
+  if(!tgl||!ket||!jml||jml<=0){ al.innerHTML='<div class="alert a-err">⚠️ Harap isi semua field.</div>'; return; }
+  txList.unshift({id:txId++,tgl,ket,jml,jenis});
+  document.getElementById('k-ket').value=''; document.getElementById('k-jml').value='';
+  al.innerHTML='<div class="alert a-ok">✅ Transaksi ditambahkan!</div>';
+  setTimeout(()=>al.innerHTML='',2500);
+  renderTx();
+}
+function deleteTx(id){ txList=txList.filter(t=>t.id!==id); renderTx(); }
+function clearTx(){ if(confirm('Hapus semua transaksi?')){ txList=[]; renderTx(); } }
+function renderTx(){
+  const tbl=document.getElementById('tx-tbl');
+  const em=document.getElementById('tx-empty');
+  if(!tbl||!em) return;
+  if(txList.length===0){ tbl.innerHTML=''; em.style.display='block'; }
+  else{
+    em.style.display='none';
+    tbl.innerHTML=txList.map(t=>`<tr>
+      <td>${t.tgl}</td><td>${t.ket}</td>
+      <td><strong>${rp(t.jml)}</strong></td>
+      <td><span class="badge ${t.jenis==='pemasukan'?'bg':'br'}">${t.jenis==='pemasukan'?'💰 Masuk':'💸 Keluar'}</span></td>
+      <td><button class="btn btn-sm btn-danger" onclick="deleteTx(${t.id})">🗑️</button></td>
+    </tr>`).join('');
+  }
+  const masuk=txList.filter(t=>t.jenis==='pemasukan').reduce((s,t)=>s+t.jml,0);
+  const keluar=txList.filter(t=>t.jenis==='pengeluaran').reduce((s,t)=>s+t.jml,0);
+  const el1=document.getElementById('k-masuk'); if(el1) el1.textContent=rp(masuk);
+  const el2=document.getElementById('k-keluar'); if(el2) el2.textContent=rp(keluar);
+  const el3=document.getElementById('k-laba'); if(el3) el3.textContent=rp(masuk-keluar);
+}
+
+/* ═══════════════════════════════
+   EDUKASI TABS
+═══════════════════════════════ */
+function eTab(t){
+  document.querySelectorAll('.edu-content').forEach(e=>e.classList.remove('show'));
+  document.querySelectorAll('.edu-tab').forEach(e=>e.classList.remove('on'));
+  const el=document.getElementById('edu-'+t); if(el) el.classList.add('show');
+  event.target.classList.add('on');
+  if(t==='latihan') setTimeout(calcNeraca,100);
+}
+
+/* ═══════════════════════════════
+   NERACA INTERAKTIF
+═══════════════════════════════ */
+function calcNeraca(){
+  const g=id=>parseInt(document.getElementById(id)?.value)||0;
+  const harta = g('ni-kas')+g('ni-bank')+g('ni-piutang')+g('ni-stok')+g('ni-alat')+g('ni-kend');
+  const utang = g('ni-usup')+g('ni-ubank')+g('ni-ulain');
+  const modal = harta - utang;
+  const el1=document.getElementById('ni-tot-harta'); if(el1) el1.textContent=rp(harta);
+  const el2=document.getElementById('ni-tot-utang'); if(el2) el2.textContent=rp(utang);
+
+  const res=document.getElementById('neraca-result');
+  if(!res) return;
+  const dtratio = utang>0?(utang/harta*100).toFixed(1):0;
+  const modal_ratio = (modal/harta*100).toFixed(1);
+  const likuid = g('ni-kas')+g('ni-bank');
+  const health = utang < harta*0.5 ? 'baik' : utang < harta*0.8 ? 'perlu_perhatian' : 'berbahaya';
+  const healthColor = health==='baik'?'var(--success)':health==='perlu_perhatian'?'var(--warn)':'var(--danger)';
+  const healthLabel = health==='baik'?'✅ SEHAT':'⚠️ PERLU PERHATIAN';
+  const healthMsg = health==='baik'?'Keuangan usaha Anda dalam kondisi baik. Utang terkendali, modal cukup kuat.':health==='perlu_perhatian'?'Utang cukup tinggi. Pertimbangkan untuk mengurangi pinjaman atau meningkatkan modal.':'Utang terlalu besar dibanding harta. Segera konsultasi dengan petugas Dinas.';
+
+  res.innerHTML = `
+    <div style="background:linear-gradient(135deg,var(--forest),var(--emerald));color:#fff;border-radius:var(--rlg);padding:1.3rem;text-align:center">
+      <div style="font-size:1.2rem;margin-bottom:.35rem">${healthLabel}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:${healthColor}">${health==='baik'?'Sehat':'Waspada'}</div>
+      <div style="font-size:.8rem;opacity:.8;margin-top:.3rem">${healthMsg}</div>
+    </div>
+    <div style="background:#fff;border-radius:var(--rlg);border:1px solid var(--border);padding:1.2rem">
+      <div style="font-weight:700;margin-bottom:.875rem;font-size:.9rem">📊 Ringkasan Neraca</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.87rem">
+        <div style="display:flex;justify-content:space-between;padding:.5rem .75rem;background:#e8f5ee;border-radius:8px"><span>Total Harta</span><strong style="color:var(--emerald)">${rp(harta)}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:.5rem .75rem;background:#fee2e2;border-radius:8px"><span>Total Utang</span><strong style="color:var(--danger)">${rp(utang)}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:.6rem .75rem;background:linear-gradient(135deg,#e8f5ee,#d4eddc);border-radius:8px;font-weight:700"><span>Modal Bersih</span><strong style="color:var(--emerald)">${rp(modal)}</strong></div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:var(--rlg);border:1px solid var(--border);padding:1.2rem">
+      <div style="font-weight:700;margin-bottom:.875rem;font-size:.9rem">📈 Rasio Keuangan</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.84rem">
+        <div style="display:flex;justify-content:space-between"><span>Debt Ratio</span><span style="font-weight:700;color:${parseFloat(dtratio)>50?'var(--danger)':'var(--success)'}">${dtratio}%</span></div>
+        <div style="background:#f3f4f6;border-radius:20px;height:7px;overflow:hidden"><div style="height:100%;background:${parseFloat(dtratio)>50?'var(--danger)':'var(--emerald)'};border-radius:20px;width:${Math.min(dtratio,100)}%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:.35rem"><span>Rasio Modal</span><span style="font-weight:700;color:var(--emerald)">${modal_ratio}%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Kas Likuid</span><span style="font-weight:700;color:var(--gov-mid)">${rp(likuid)}</span></div>
+      </div>
+    </div>
+    <div class="edu-box" style="border-left-color:${healthColor}">
+      <h4>💡 Rekomendasi</h4>
+      <ul>${health==='baik'?`<li>Pertahankan rasio utang di bawah 50%</li><li>Sisihkan 10-15% keuntungan untuk cadangan</li><li>Pertimbangkan ekspansi usaha secara bertahap</li>`:`<li>Prioritaskan melunasi utang jangka pendek</li><li>Hindari menambah pinjaman baru dulu</li><li>Konsultasi program KUR atau UMKM binaan Dinas</li>`}</ul>
+    </div>`;
+}
+
+/* ═══════════════════════════════
+   GOV DASHBOARD
+═══════════════════════════════ */
+let govChartsInited = false;
+function gTab(t){
+  ['gov','prodmon','umkmtrack','verif','laporan'].forEach(x=>{
+    const el=document.getElementById('gt-'+x); if(el) el.style.display='none';
+    const bt=document.getElementById('gsbt-'+x); if(bt) bt.classList.remove('on');
+  });
+  const el=document.getElementById('gt-'+t); if(el) el.style.display='block';
+  const bt=document.getElementById('gsbt-'+t); if(bt) bt.classList.add('on');
+  if(t==='prodmon') renderProdMon();
+  if(t==='umkmtrack') initTrackCharts();
+  if(t==='verif') renderVerif();
+  if(t==='laporan') initLaporan();
+  document.getElementById('pm-q')?.addEventListener('input', ()=>renderProdMon());
+}
+
+function updateGovStats(){
+  const all=getAllProds();
+  const pend=all.filter(p=>p.status==='pending');
+  const el1=document.getElementById('gov-totprod'); if(el1) el1.textContent=all.length;
+  const el2=document.getElementById('gov-pendprod'); if(el2) el2.textContent=`⏳ ${pend.length} menunggu verifikasi`;
+  const vb=document.getElementById('verif-badge'); if(vb) vb.textContent=pend.length;
+}
+
+function renderProdMon(){
+  const q=(document.getElementById('pm-q')?.value||'').toLowerCase();
+  const filt=document.getElementById('pm-filter')?.value||'all';
+  let list = getAllProds();
+  if(q) list=list.filter(p=>p.name.toLowerCase().includes(q)||p.seller.toLowerCase().includes(q));
+  if(filt!=='all') list=list.filter(p=>p.status===filt);
+
+  const el1=document.getElementById('pm-total'); if(el1) el1.textContent=getAllProds().length;
+  const el2=document.getElementById('pm-approved'); if(el2) el2.textContent=getAllProds().filter(p=>p.status==='approved').length;
+  const el3=document.getElementById('pm-pending'); if(el3) el3.textContent=getAllProds().filter(p=>p.status==='pending').length;
+  const el4=document.getElementById('pm-rejected'); if(el4) el4.textContent=getAllProds().filter(p=>p.status==='rejected').length;
+
+  const listEl=document.getElementById('pm-list');
+  if(!listEl) return;
+  if(list.length===0){ listEl.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)">Tidak ada produk</div>'; return; }
+  listEl.innerHTML = list.map(p=>{
+    const imgEl = p.img
+      ? `<div class="pmc-img"><img src="${p.img}"></div>`
+      : `<div class="pmc-img">${p.emoji}</div>`;
+    return `<div class="prod-monitor-card">
+      ${imgEl}
+      <div class="pmc-body">
+        <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:.5rem">
+          <div>
+            <div style="font-weight:700;font-size:.93rem">${p.name}</div>
+            <div style="font-size:.78rem;color:var(--muted);margin-top:2px">🏪 ${p.seller} · 📍 Kec. ${p.kec} · ${p.cat}</div>
+          </div>
+          <span class="badge ${p.status==='approved'?'bg':p.status==='pending'?'by':'br'}">${p.status==='approved'?'✅ Disetujui':p.status==='pending'?'⏳ Pending':'❌ Ditolak'}</span>
+        </div>
+        <div style="margin-top:.5rem;font-size:.82rem;color:var(--muted);display:flex;gap:1rem;flex-wrap:wrap">
+          <span>💰 ${rp(p.price)}</span>
+          <span>👁️ ${p.views} views</span>
+          <span>📦 ${p.sold} terjual</span>
+          <span>⭐ ${p.rating}</span>
+          ${p.img?'<span style="color:var(--success);font-weight:600">📷 Ada foto asli</span>':'<span>📷 Tidak ada foto</span>'}
+        </div>
+      </div>
+      <div class="pmc-actions">
+        ${p.status==='pending'?`
+          <button class="btn btn-sm btn-success" onclick="verifAction(${p.id},'approved')">✅ Setujui</button>
+          <button class="btn btn-sm btn-danger" onclick="verifAction(${p.id},'rejected')">❌ Tolak</button>
+        `:p.status==='approved'?`
+          <button class="btn btn-sm btn-danger" onclick="verifAction(${p.id},'rejected')">❌ Cabut</button>
+        `:`
+          <button class="btn btn-sm btn-success" onclick="verifAction(${p.id},'approved')">✅ Setujui</button>
+        `}
+        <button class="btn btn-sm" style="background:#f3f4f6;color:var(--muted)" onclick="goProd(${p.id})">👁️ Lihat</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderVerif(){
+  const pend = getAllProds().filter(p=>p.status==='pending');
+  const listEl=document.getElementById('verif-list');
+  const emEl=document.getElementById('verif-empty');
+  if(!listEl||!emEl) return;
+  if(pend.length===0){ listEl.innerHTML=''; emEl.style.display='block'; return; }
+  emEl.style.display='none';
+  listEl.innerHTML = pend.map(p=>{
+    const imgEl = p.img
+      ? `<div style="width:70px;height:70px;border-radius:var(--r);overflow:hidden;flex-shrink:0"><img src="${p.img}" style="width:100%;height:100%;object-fit:cover"></div>`
+      : `<div style="width:70px;height:70px;border-radius:var(--r);background:linear-gradient(135deg,#e8f5ee,#d4eddc);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0">${p.emoji}</div>`;
+    return `<div style="background:#fff;border-radius:var(--rlg);border:2px solid #fde68a;padding:1.1rem;display:flex;gap:1rem;align-items:start;margin-bottom:.875rem">
+      ${imgEl}
+      <div style="flex:1">
+        <div style="font-weight:700">${p.name}</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:2px">🏪 ${p.seller} · 📍 ${p.kec} · ${p.cat} · ${rp(p.price)}</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-top:.4rem;line-height:1.5">${p.desc.substring(0,100)}...</div>
+        ${p.img?`<div style="margin-top:.4rem;font-size:.78rem;color:var(--success);font-weight:600">📷 Foto asli tersedia</div>`:`<div style="font-size:.78rem;color:var(--warn);margin-top:.3rem">⚠️ Belum ada foto produk</div>`}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;flex-shrink:0">
+        <button class="btn btn-success btn-sm" onclick="verifAction(${p.id},'approved');renderVerif()">✅ Setujui</button>
+        <button class="btn btn-danger btn-sm" onclick="verifAction(${p.id},'rejected');renderVerif()">❌ Tolak</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function verifAction(id, status){
+  const p = PRODS.find(x=>x.id===id);
+  if(p){ p.status=status; }
+  else {
+    const up = userProducts.find(x=>x.id===id);
+    if(up) up.status=status;
+  }
+  const al = document.getElementById('verif-alert');
+  if(al){ al.innerHTML=`<div class="alert ${status==='approved'?'a-ok':'a-err'}">${status==='approved'?'✅ Produk disetujui dan kini tampil di marketplace!':'❌ Produk ditolak.'}</div>`; setTimeout(()=>al.innerHTML='',3000); }
+  updateGovStats();
+  renderProdMon();
+  renderVerif();
+}
+
+let trackChartsInited=false;
+function initTrackCharts(){
+  if(trackChartsInited) return; trackChartsInited=true;
+  new Chart(document.getElementById('trk-kat'),{type:'bar',data:{labels:['Kuliner','Fashion','Kerajinan','Jasa'],datasets:[{label:'Jumlah UMKM',data:[13161,7312,5850,2924],backgroundColor:['#1a5c38','#2563eb','#e8a020','#7c3aed'],borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'#f3f4f6'}},x:{grid:{display:false}}},responsive:true,maintainAspectRatio:true}});
+  new Chart(document.getElementById('trk-reg'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],datasets:[{label:'UMKM Baru',data:[285,312,298,320,305,340,325,360,315,342,378,358],borderColor:'#1a5c38',backgroundColor:'rgba(26,92,56,.1)',fill:true,tension:.4,pointBackgroundColor:'#1a5c38',pointRadius:4}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:false,grid:{color:'#f3f4f6'}},x:{grid:{display:false}}},responsive:true,maintainAspectRatio:true}});
+  const topUMKM=[{rank:1,name:'UMKM Bu Sari',cat:'Kuliner',kec:'Kranggan',prods:12,views:2840},
+    {rank:2,name:'Batik Kranggan',cat:'Fashion',kec:'Kranggan',prods:8,views:2210},
+    {rank:3,name:'Bambu Karya',cat:'Kerajinan',kec:'Prajuritkulon',prods:15,views:1980},
+    {rank:4,name:'Dapur Mak Nem',cat:'Kuliner',kec:'Magersari',prods:6,views:1750},
+    {rank:5,name:'Catering Bu Dewi',cat:'Jasa',kec:'Prajuritkulon',prods:3,views:1560},
+    {rank:6,name:'Anyaman Putri',cat:'Kerajinan',kec:'Kranggan',prods:10,views:1420},
+    {rank:7,name:'Tenun Lokal',cat:'Fashion',kec:'Kranggan',prods:5,views:1380},
+    {rank:8,name:'Jajanan Ibu',cat:'Kuliner',kec:'Magersari',prods:9,views:1290},
+    {rank:9,name:'UD Kerajinan Maju',cat:'Kerajinan',kec:'Kranggan',prods:18,views:1180},
+    {rank:10,name:'Bakso Pak Dono',cat:'Kuliner',kec:'Prajuritkulon',prods:4,views:1050}];
+  document.getElementById('top-umkm-tbl').innerHTML=topUMKM.map(u=>`<tr>
+    <td><strong>${u.rank}</strong></td><td>${u.name}</td><td><span class="badge bb">${u.cat}</span></td>
+    <td>${u.kec}</td><td>${u.prods}</td><td>👁️ ${u.views}</td>
+    <td><span class="badge bg">Aktif</span></td>
+  </tr>`).join('');
+}
+
+let lapInited=false;
+function initLaporan(){
+  if(lapInited) return; lapInited=true;
+  new Chart(document.getElementById('lap-q1'),{type:'bar',data:{labels:['Jan 2025','Feb 2025','Mar 2025'],datasets:[{label:'UMKM Baru',data:[285,312,300],backgroundColor:'var(--emerald)',borderRadius:6},{label:'Produk Baru',data:[420,450,370],backgroundColor:'#2563eb',borderRadius:6}]},options:{plugins:{legend:{position:'top',labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,grid:{color:'#f3f4f6'}},x:{grid:{display:false}}},responsive:true,maintainAspectRatio:true}});
+}
+function var_(v){ const m={'--emerald':'#1a5c38','--gov-mid':'#2563eb'}; return m[v]||v; }
+
+function initGovCharts(){
+  if(govChartsInited) return; govChartsInited=true;
+  new Chart(document.getElementById('gov-sektor'),{type:'doughnut',data:{labels:['Kuliner','Fashion','Kerajinan','Jasa','Lainnya'],datasets:[{data:[45,25,20,7,3],backgroundColor:['#1a5c38','#2563eb','#e8a020','#7c3aed','#9ca3af'],borderWidth:0,hoverOffset:6}]},options:{plugins:{legend:{position:'right',labels:{font:{family:'DM Sans',size:11}}}},cutout:'60%',responsive:true,maintainAspectRatio:true}});
+  new Chart(document.getElementById('gov-growth'),{type:'line',data:{labels:['2020','2021','2022','2023','2024','2025'],datasets:[{label:'Jumlah UMKM',data:[18000,20500,22800,25100,27300,29247],borderColor:'#1a5c38',backgroundColor:'rgba(26,92,56,.1)',fill:true,tension:.4,pointBackgroundColor:'#1a5c38',pointRadius:5}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:false,grid:{color:'#f3f4f6'}},x:{grid:{display:false}}},responsive:true,maintainAspectRatio:true}});
+  new Chart(document.getElementById('gov-kec'),{type:'bar',data:{labels:['Kranggan','Magersari','Prajuritkulon'],datasets:[{data:[142,105,65],backgroundColor:['#1a5c38','#2563eb','#7c3aed'],borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'#f3f4f6'}},x:{grid:{display:false}}},responsive:true,maintainAspectRatio:true}});
+  const days=Array.from({length:14},(_,i)=>{const d=new Date();d.setDate(d.getDate()-13+i);return d.toLocaleDateString('id-ID',{day:'2-digit',month:'short'})});
+  new Chart(document.getElementById('gov-tx'),{type:'line',data:{labels:days,datasets:[{data:[620,580,710,650,820,760,890,730,800,850,770,920,810,847],borderColor:'#e8a020',backgroundColor:'rgba(232,160,32,.1)',fill:true,tension:.4,pointBackgroundColor:'#e8a020',pointRadius:3}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:false,grid:{color:'#f3f4f6'}},x:{grid:{display:false},ticks:{maxTicksLimit:7}}},responsive:true,maintainAspectRatio:true}});
+}
+
+/* ═══════════════════════════════
+   INIT
+═══════════════════════════════ */
+initHome();
+document.getElementById('k-tgl')?.setAttribute('value', new Date().toISOString().split('T')[0]);
+updateGovStats();
+</script>
+<div class="dev-credit">
+  <div class="dev-credit-inner">
+    <div style="display:flex;align-items:center;gap:.875rem">
+      <div style="width:40px;height:40px;background:linear-gradient(135deg,#1a5c38,#2d8a55);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">👨‍💻</div>
+      <div>
+        <div class="dev-credit-name">Muhammad Setio Budi</div>
+        <div class="dev-credit-univ">Universitas Mayjen Sungkono · Mojokerto</div>
+      </div>
+    </div>
+    <div style="color:rgba(255,255,255,.45);font-size:.78rem;text-align:center">Platform Digital UMKM Kota Mojokerto<br>© 2025 · Hak Cipta Dilindungi</div>
+    <div>
+      <span class="chip">🧪 Prototype</span>
+      <span class="chip">📊 Data Ilustrasi</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
